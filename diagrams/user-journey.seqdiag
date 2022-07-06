@@ -1,3 +1,9 @@
+# View on web:
+# https://www.websequencediagrams.com/files/render?link=2uX8ikm5zlbU2MY91kkCRsc8H0volTlZQdJDxleaiJPq1LDh7s6xGRSo2oRicmDt
+
+# Or in VS Code:
+# https://marketplace.visualstudio.com/items?itemName=AleksandarDev.vscode-sequence-diagrams
+
 MusicianA->Server: visit home
 Note over Server: Use WS connection for\n- WebRTC singaling\n- central clock?
 Server->MusicianA: Establish websocket connection
