@@ -1,19 +1,14 @@
-MusicianA->Server: visit home
-Note over Server: Use WS connection for\n- WebRTC singaling\n- central clock?
-Server->MusicianA: Establish websocket connection
-Server->MusicianA: new jam session hash
+MusicianA->App Server: visit home
+App Server->MusicianA: new jam session hash
 MusicianA-->MusicianB: send session link
 
-Note over MusicianB: B visits session URL
-Server->MusicianB: Establish websocket connection
+Note over Signaling Server: WebRTC signalling\n(simplified)
+MusicianA->Signaling Server: send SDP offer
+Signaling Server->MusicianB: forward SDP offer to B
+MusicianB->Signaling Server: send SDP offer response
+Signaling Server->MusicianA: forward SDP offer response to A
 
-Note over Server: WebRTC signalling\n(simplified)
-MusicianA->Server: send SDP offer\n(websocket)
-Server->MusicianB: forward SDP offer to B\n(websocket)
-MusicianB->Server: send SDP offer response\n(websocket)
-Server->MusicianA: forward SDP offer response to A\n(websocket)
-
-Note over Server: WebRTC signalling\ncomplete
+Note over Signaling Server: WebRTC signalling\ncomplete
 Note over MusicianA: now A and B can connect\ndirectly over WebRTC
 MusicianA -> MusicianB:  WebRTC data channel
 MusicianB -> MusicianA: between A and B
