@@ -42,6 +42,10 @@ Session Description Protocol
     - **!!! for MIDI !!!**
     - ...
 
+Golang:
+
+- https://libs.garden/go/search?q=rtp
+
 # RTCP 
 
 = RTP Control Protocol
@@ -98,7 +102,7 @@ Golang:
 
 Golang:
 
-- https://github.com/pion/webrtc
+- https://libs.garden/go/search?q=webrtc
 
 
 
@@ -106,9 +110,10 @@ Golang:
 
 Golang:
 
+- https://libs.garden/go/search?q=midi
 - https://github.com/gomidi/midi
-    - also contains a **WASM**-example
-- 
+    - contains a **WASM**-example that can talk to real midi-hardware from the webbrowser!
+
 
 # Music theory / math
 
