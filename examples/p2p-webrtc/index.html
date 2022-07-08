@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=sc, initial-scale=1.0" />
+    <title>WebRTC Data Channel Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/jzz"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jzz-synth-tiny"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jzz-input-kbd"></script>
+  </head>
+  <body>
+    <div id="container">
+      <h1>Virtual Piano</h1>
+
+      <div id="piano"></div>
+
+      <div class="box">
+        <button id="startButton">Start</button>
+        <button id="hangupButton">Hang Up</button>
+      </div>
+      <div>
+        <h2>Local SDP Offer</h2>
+        <textarea disabled name="" id="localSdp" cols="80" rows="10"></textarea>
+      </div>
+      <div>
+        <h2>Paste Remote SDP Answer</h2>
+        <textarea name="" id="remoteSdp" cols="80" rows="10"></textarea>
+      </div>
+    </div>
+
+    <script src="js/webrtc.js"></script>
+    <script src="js/piano.js"></script>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+@startuml
+title Broadcast MIDI from Websocket Server
+
+node ws_server
+actor musicianA
+actor musicianB
+actor musicianC
+
+rectangle desc [
+  <b>Transport over Websockets</b>
+  Notes sent from one musician are sent to server,
+  then broadcast to other musicians.
+
+  Pros:
+  - Less complicated than WebRTC
+  - May already need websocket server
+    for clock sync
+
+  Cons:
+  - TCP (Higher latency than UDP)
+  - Longer trip for MIDI events
+]
+
+musicianA -[#red]-> ws_server: ON, A5
+ws_server .[#red]-> musicianB: ON, A5
+ws_server .[#red]-> musicianC: ON, A5
+
+musicianB -[#green]-> ws_server: ON, C3
+ws_server .[#green]-> musicianA: ON, C3
+ws_server .[#green]-> musicianC: ON, C3
+
+musicianC -[#blue]-> ws_server: ON, C3
+ws_server .[#blue]-> musicianA: ON, C3
+ws_server .[#blue]-> musicianB: ON, C3
+
+@enduml
