@@ -1,0 +1,28 @@
+@startuml
+title Peer-to-peer MIDI notes
+
+actor musicianA
+actor musicianB
+actor musicianC
+
+rectangle desc [
+  <b>Transport over WebRTC</b>
+  Pros:
+  - Skip server hop (shorter message trip)
+  - UDP (lower latency than TCP)
+
+  Cons:
+  - More complicated as peers increase
+  - Need signaling server
+]
+
+
+musicianA -[#red]-> musicianB: ON, A5
+musicianA -[#red]-> musicianC: ON, A5
+
+musicianB -[#green]-> musicianA: ON, C3
+musicianB -[#green]-> musicianC: ON, C3
+
+musicianC -[#blue]-> musicianA: ON, F6
+musicianC -[#blue]-> musicianB: ON, F6
+@enduml
