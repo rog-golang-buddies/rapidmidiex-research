@@ -131,7 +131,11 @@ function onAddIceCandidateError(error) {
 function onDataChannelStateChange() {
   const readyState = peerConnection.dataChannel.readyState;
   console.log("Send channel state is: " + readyState);
+  if (readyState === "open") {
+    window.onConnectionOpen(peerConnection);
+  }
 }
+
 function onDataChannelMessage(event) {
   console.log("Received message: " + event.data);
 }

@@ -1,7 +1,7 @@
 // https://jazz-soft.net/demo/Knobs.html
 JZZ.synth.Tiny.register();
 
-JZZ.input
+localInstrument = JZZ.input
   .ASCII({
     A: "F#4",
     Z: "G4",
@@ -21,18 +21,43 @@ JZZ.input
     ">": "A5",
     ":": "Bb5",
   })
-  .connect(JZZ.input.Kbd({ at: "piano" }).connect(JZZ().openMidiOut()))
-  .connect(print);
+  .connect(
+    JZZ.input.Kbd({ at: "piano" }).connect(JZZ().openMidiOut()).connect(print)
+  );
 
+const remoteMIDIchannel = 1;
+// https://jazz-soft.net/demo/GeneralMidi.html
+const remoteMIDIInstrument = 16; // Organ
+const remoteInstrument = JZZ.input
+  .Kbd({ active: false })
+  .connect(JZZ().openMidiOut());
+remoteInstrument.program(remoteMIDIchannel, remoteMIDIInstrument);
 const midiMsgArea = document.getElementById("midi-msg-area");
 
-const text = [];
-
 function print(msg) {
-  text.push(JZZ.MIDI(msg).toString());
-  if (text.length > 20) text = text.slice(1);
-  midiMsgArea.innerHTML = text.join("<br>");
-  midiMsgArea.scrollTop = midiMsgArea.scrollHeight;
-  console.log({ msg });
-  peerConnection.send(msg);
+  const midiString = JZZ.MIDI(msg).toString();
+  console.log({ midiMsg: midiString });
+  const [channel, note, velocity] = Array.from(msg);
+  const midiMsg = {
+    channel,
+    note,
+    velocity,
+    isNoteOn: midiString.split("Note")[1].trim() === "On",
+  };
+  if (peerConnection.dataChannel.readyState === "open") {
+    peerConnection.dataChannel.send(JSON.stringify(midiMsg));
+  }
 }
+
+function onMidiReceived(msg) {
+  const { channel, note, velocity, isNoteOn } = JSON.parse(msg.data);
+  console.log("Received MIDI message: ", { channel, note, velocity });
+  const methodName = isNoteOn ? "noteOn" : "noteOff";
+
+  // Play remote note on 2nd instrument
+  remoteInstrument[methodName](remoteMIDIchannel, note, velocity);
+}
+
+window.onConnectionOpen = (connection) => {
+  connection.dataChannel.onmessage = onMidiReceived;
+};
