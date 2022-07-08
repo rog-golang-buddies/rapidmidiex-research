@@ -1,0 +1,17 @@
+@startuml
+title Server Main Time Sync
+actor musicianA
+actor musicianB
+actor musicianC
+
+node main_clock [
+  <b>Main Clock</b>
+  Send time data to sync 'beat'
+  tracks on client machines
+]
+
+main_clock --> musicianA
+main_clock --> musicianB
+main_clock --> musicianC
+
+@enduml
