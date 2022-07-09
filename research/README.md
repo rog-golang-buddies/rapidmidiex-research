@@ -121,3 +121,9 @@ Golang:
 
 - https://github.com/go-music-theory/music-theory
 
+
+# Front-end audio/midi
+
+- https://jazz-soft.net/doc/
+    - used in [](../examples/p2p-webrtc/index.html)
+    - 
