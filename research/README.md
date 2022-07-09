@@ -125,5 +125,4 @@ Golang:
 # Front-end audio/midi
 
 - https://jazz-soft.net/doc/
-    - used in [](../examples/p2p-webrtc/index.html)
-    - 
+    - used in [p2p-webrtc example](../examples/p2p-webrtc/index.html)
