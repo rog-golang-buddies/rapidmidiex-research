@@ -10,5 +10,5 @@ Research and links to potentially useful libraries or examples go in [Research](
 
 # Our own examples!
 
-- [p2p-webrtc](p2p-webrtc/)
-- [time-sync](time-sync/)
+- [p2p-webrtc](p2p-webrtc/README.md)
+- [time-sync](time-sync/README.md)
