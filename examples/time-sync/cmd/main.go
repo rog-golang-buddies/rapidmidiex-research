@@ -1,7 +1,10 @@
 package main
 
 import (
+	"fmt"
+	"log"
 	"net/http"
+	"os"
 
 	"example.com/handlers"
 	"github.com/go-chi/chi/v5"
@@ -15,8 +18,14 @@ func main() {
 	s := handlers.Server{}
 
 	r.Route("/time", func(r chi.Router) {
-		r.Post("/sync", s.SyncTime)
+		r.Get("/sync", s.SyncTime)
 		r.Get("/stop", s.Stop)
 	})
-	http.ListenAndServe(":8080", r)
+
+	port := "8080"
+	if p, ok := os.LookupEnv("PORT"); ok {
+		port = p
+	}
+	fmt.Printf("Starting Clock Sync server on port :%v...\n", port)
+	log.Fatal(http.ListenAndServe(":"+port, r))
 }
