@@ -1,4 +1,5 @@
-module ws.rog.noughtscrosses
+// module ws.rog.noughtscrosses
+module github.com/rog-golang-buddies/realtime-midi/examples/ws-noughts-crosses
 
 go 1.18
 

@@ -6,7 +6,7 @@ import (
 	"log"
 	"net"
 
-	"ws.rog.noughtscrosses"
+	websocket "github.com/rog-golang-buddies/realtime-midi/examples/ws-noughts-crosses"
 
 	"github.com/gobwas/ws"
 	"github.com/gobwas/ws/wsutil"

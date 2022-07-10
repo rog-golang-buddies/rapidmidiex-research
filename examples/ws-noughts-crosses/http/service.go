@@ -5,7 +5,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 
-	"ws.rog.noughtscrosses/http/ws"
+	"github.com/rog-golang-buddies/realtime-midi/examples/ws-noughts-crosses/http/ws"
 )
 
 type Service struct {
