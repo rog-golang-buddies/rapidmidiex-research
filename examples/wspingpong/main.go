@@ -17,7 +17,7 @@ type WSPingPongServer struct {
 	LogLevel LogLevel
 }
 
-// r: not a pointer because we want to change the request
+// r: not a pointer because we don't want to change the request
 func (h WSPingPongServer) log(r http.Request) {
 	switch h.LogLevel {
 	case LogLevelBasic:
