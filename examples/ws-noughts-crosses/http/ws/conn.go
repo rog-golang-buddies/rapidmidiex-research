@@ -47,7 +47,6 @@ func (c *Conn) serve() {
 
 		// doSomething with the msg
 
-		// send to clients
 		go c.pool.Broadcast(msg)
 	}
 

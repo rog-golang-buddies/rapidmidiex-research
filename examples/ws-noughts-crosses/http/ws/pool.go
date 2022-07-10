@@ -1,7 +1,6 @@
 package ws
 
 import (
-	"log"
 	"net"
 
 	"ws.rog.noughtscrosses"
@@ -44,8 +43,7 @@ func (p *Pool) delete(c *Conn) {
 
 // Send message to all connections in pool
 func (p Pool) Broadcast(req websocket.Message) {
-	for i, cli := range p.m {
-		log.Println(">", i)
+	for _, cli := range p.m {
 		cli.Write(req)
 	}
 }

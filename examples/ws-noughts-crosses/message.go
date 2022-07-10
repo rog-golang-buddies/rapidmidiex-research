@@ -16,6 +16,7 @@ const (
 	Join
 	Leave
 	Play
+	Reset
 	Unknown
 )
 
@@ -42,6 +43,8 @@ func (m *MessageType) UnmarshalJSON(b []byte) error {
 		*m = Leave
 	case "play":
 		*m = Play
+	case "reset":
+		*m = Reset
 	default:
 		*m = Unknown
 	}
@@ -61,6 +64,8 @@ func (m MessageType) String() string {
 		return "leave"
 	case Play:
 		return "play"
+	case Reset:
+		return "reset"
 	default:
 		return "unknown"
 	}
