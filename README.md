@@ -8,7 +8,7 @@ Our own created diagrams go in [Diagrams](diagrams/README.md).
 
 Research and links to potentially useful libraries or examples go in [Research](research/README.md).
 
-# Our own examples!
+# Examples!
 
 - [examples/p2p-webrtc](examples/p2p-webrtc/)
 - [examples/time-sync](examples/time-sync/)
