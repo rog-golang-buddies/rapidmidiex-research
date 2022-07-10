@@ -17,9 +17,9 @@ import (
 // basically a room
 type clients map[uuid.UUID]*conn
 
-func (cls clients) add(c *conn) {
-	cls[c.id] = c
-}
+// func (cls clients) add(c *conn) {
+// 	cls[c.id] = c
+// }
 
 func (cls clients) broadcast(req websocket.Message) {
 	for _, cli := range cls {
@@ -54,13 +54,24 @@ func (s *Service) newConn(rwc net.Conn) *conn {
 
 func (c *conn) serve() {
 	defer c.rwc.Close()
-	c.write(fmt.Sprintf("connection established: %s", c.id))
+
+	message := struct {
+		Type string `json:"type"`
+		Data struct {
+			Id string `json:"id"`
+		} `json:"data"`
+	}{Type: "join", Data: struct {
+		Id string "json:\"id\""
+	}{Id: c.id.String()}}
+
+	c.write(message)
 
 	for c.next() {
 		var msg websocket.Message
 		if c.err = c.read(&msg); c.err != nil {
 			break
 		}
+		fmt.Println(msg)
 		// send to clients
 		go c.cls.broadcast(msg)
 	}

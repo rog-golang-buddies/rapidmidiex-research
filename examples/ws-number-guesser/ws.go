@@ -6,4 +6,13 @@ type contextKey struct {
 
 func (k *contextKey) String() string { return "net/http context value " + k.name }
 
-type Message int
+type Message struct {
+	Type string `json:"type"`
+	Data any    `json:"data"`
+}
+
+type Play struct {
+	Turn  int
+	Pos   int
+	Moves int
+}
