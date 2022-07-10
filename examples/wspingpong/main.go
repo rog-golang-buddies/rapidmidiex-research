@@ -1,6 +1,7 @@
 package wspingpong
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"time"
@@ -12,6 +13,7 @@ type LogLevel int
 
 const (
 	LogLevelBasic LogLevel = iota
+	LogLevelBasicWithHeaders
 	LogLevelFull
 	LogLevelFullSpew
 )
@@ -24,7 +26,14 @@ type WSPingPongServer struct {
 func (h WSPingPongServer) log(r http.Request) {
 	switch h.LogLevel {
 	case LogLevelBasic:
-		log.Printf("request from [%s]\n", r.Host)
+		log.Printf("[%s]-request from [%s] using [%s] with [%d] headers\n", r.Method, r.Host, r.Proto, len(r.Header))
+	case LogLevelBasicWithHeaders:
+		log.Printf("[%s]-request from [%s] using [%s] with [%d] headers\n", r.Method, r.Host, r.Proto, len(r.Header))
+		if len(r.Header) > 0 {
+			for k, v := range r.Header {
+				fmt.Printf("    %s: %v\n", k, v)
+			}
+		}
 	case LogLevelFull:
 		log.Printf("request: [%+v]\n", r)
 	case LogLevelFullSpew:
