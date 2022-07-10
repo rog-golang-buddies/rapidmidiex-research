@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	ptth "ws.rog.numberguesser/http"
+	ptth "ws.rog.noughtscrosses/http"
 )
 
 func main() {
