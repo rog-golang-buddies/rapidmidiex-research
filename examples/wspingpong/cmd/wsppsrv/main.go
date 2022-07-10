@@ -9,5 +9,5 @@ import (
 func main() {
 	// Make log print a datetime and a filename:linenumber
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
-	wspingpong.StartServer(":9876", wspingpong.LogLevelFullSpew)
+	wspingpong.StartServer(":9876", wspingpong.LogLevelBasicWithHeaders)
 }
