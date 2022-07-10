@@ -13,6 +13,8 @@ From the docs at https://pkg.go.dev/nhooyr.io/websocket#Conn.Ping:
 # TODO
 
 [x] A simple custom http-server with just one route
+[x] Separate server in separate cmd (run with `go run cmd/wsppsrv/main.go`)
+[x] Client app for easy testing (run with `go run cmd/wsppclient/main.go`) 
 [ ] Upgrade client-connections to websocket-connections
 [ ] Store all connected clients and show them all on page refresh
 [ ] Add a bubbletea-TUI
