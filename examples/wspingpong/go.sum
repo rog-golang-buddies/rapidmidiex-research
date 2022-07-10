@@ -1,4 +1,4 @@
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
-github.com/hansvb/quickmenu v0.0.1 h1:gV8aQABBzJ+VIUAQqCRNaAzjaPf43wuVKansCzTBRv0=
-github.com/hansvb/quickmenu v0.0.1/go.mod h1:2mBBL36WLkhpq2qgFaz7kymvNSsfAYgSJ20WDE3fEDE=
+github.com/hansvb/quickmenu v0.0.2 h1:RKdIS4LU8EWVSz+2MY8ooeAG6WemBR6gnF3scapy58o=
+github.com/hansvb/quickmenu v0.0.2/go.mod h1:2mBBL36WLkhpq2qgFaz7kymvNSsfAYgSJ20WDE3fEDE=
