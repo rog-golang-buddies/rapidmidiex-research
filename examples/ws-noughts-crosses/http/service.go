@@ -3,9 +3,9 @@ package http
 import (
 	"net/http"
 
-	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi"
 
-	"github.com/rog-golang-buddies/realtime-midi/examples/ws-noughts-crosses/http/ws"
+	"ws.rog.noughtscrosses/http/ws"
 )
 
 type Service struct {

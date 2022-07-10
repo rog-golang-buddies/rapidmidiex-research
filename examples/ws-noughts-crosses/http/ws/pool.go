@@ -4,7 +4,7 @@ import (
 	"net"
 	"sync"
 
-	websocket "github.com/rog-golang-buddies/realtime-midi/examples/ws-noughts-crosses"
+	websocket "ws.rog.noughtscrosses"
 
 	"github.com/gobwas/ws"
 	"github.com/gobwas/ws/wsutil"

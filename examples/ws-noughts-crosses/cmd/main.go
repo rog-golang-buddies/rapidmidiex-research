@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	ptth "github.com/rog-golang-buddies/realtime-midi/examples/ws-noughts-crosses/http"
+	ptth "ws.rog.noughtscrosses/http"
 )
 
 func main() {
