@@ -12,15 +12,14 @@ const ws = new WebSocket("ws://localhost:8080/ws");
 function useGame({ board, turn, winner }) {
     /** @type {[{ board:(0|1|2)[]; winner:0|1|2 }, function]} */const [{ board: aBoard, winner: aWinner, moves, turn: aTurn }, setGrid] = useState(() => ({ board, turn, winner, moves: board.length }));
 
-
-    // something in this is being run a bizillion types causing it to lag after a couple games
-    // I dont know much about React so so blaming it on witchcraft
-    let count = 0;
     const onMessage = (/**@type {MessageEvent<any>}*/e) => {
         const message = JSON.parse(e.data) || {};
         switch (message["type"]) {
             case "join":
                 console.log(message["data"]);
+                break;
+            case "reset":
+                setGrid(_ => ({ board: [...board], turn, winner, moves: board.length }));
                 break;
             case "play":
                 let { turn: bTurn, pos: bPos, moves: bMoves } = message["data"];
@@ -28,11 +27,11 @@ function useGame({ board, turn, winner }) {
                     oldBoard[bPos] = [1, 2][bTurn ^= 1];
                     return { board: [...oldBoard], turn: bTurn, winner: hasWinner([...oldBoard]), moves: --bMoves };
                 }, []); //being run too many times
+                console.log("player: ", turn);
                 break;
             default:
                 console.error("unknown message: ", message);
         }
-        console.log("new count");
     };
 
     /** 
@@ -49,20 +48,30 @@ function useGame({ board, turn, winner }) {
             }
         };
 
-        console.log("clicked", count);
-
         ws.send(JSON.stringify(message)); // to server
 
+        // TODO - can only make move if its their turn
         setGrid(function (/** @type {{ board:(0|1|2)[]; turn:1|2; moves:number; }} */{ board: oldBoard, turn: oldTurn, moves }) {
             // oldBoard[[...e.target.parentNode.children].indexOf(e.target)] = [1, 2][oldTurn ^= 1];
             oldBoard[message.data.pos] = [1, 2][oldTurn ^= 1];
             return { board: [...oldBoard], turn: oldTurn, winner: hasWinner([...oldBoard]), moves: --moves };
-        }, []);
+        });
     };
 
-    const onReset = _ => setGrid(_ => ({ board, turn, winner, moves: board.length }), []);
+    const onReset = _ => {
+        const message = {
+            type: "reset",
+            data: {
+                // no need to send data
+            }
+        };
 
-    return { board: aBoard, winner: aWinner, moves, play: onPlay, reset: onReset, message: onMessage };
+        ws.send(JSON.stringify(message));
+
+        setGrid(_ => ({ board, turn, winner, moves: board.length }));
+    };
+
+    return { board: aBoard, winner: aWinner, moves, onPlay, onReset, onMessage };
 }
 
 /**
@@ -94,31 +103,25 @@ const hasWinner = (board) => {
 };
 
 export default function Game() {
-    const { board, winner, moves, play, reset, message } = useGame({ board: [0, 0, 0, 0, 0, 0, 0, 0, 0], turn: 1, winner: 0 });
-
-    ws.addEventListener('open', e => {
-        console.log("connection opened");
-    });
-    ws.addEventListener('close', e => {
-        console.log("closed");
-    });
-
-    ws.addEventListener("error", e => console.error(e));
+    const { board, winner, moves, onPlay, onReset, onMessage } = useGame({ board: [0, 0, 0, 0, 0, 0, 0, 0, 0], turn: 1, winner: 0 });
 
     useEffect(() => {
-        ws.addEventListener('message', message);
+        ws.addEventListener('open', e => console.log("connection opened"));
+        ws.addEventListener('close', e => console.log("closed"));
+        ws.addEventListener("error", e => console.error(e));
+        ws.addEventListener('message', onMessage);
     }, []); //have no idea why this needs to be here
 
     return html`
     <div class=${tw`flex-col`}>
-        <div class=${tw`grid grid-cols-3 gap-3`} onClick=${play}>
+        <div class=${tw`grid grid-cols-3 gap-3`} onClick=${onPlay}>
             ${board.map(cell => html`<button disabled=${winner || cell} class=${tw`border-green-200 border-2 p-2`}>${cell}</button>`)}
         </div>
 
         <p>Game status: ${winner}</p>
         <p>Moves left: ${moves}</p>
         
-        <button onClick=${reset} class=${tw`p-2 bg-gray-200`} disabled=${!winner && moves}>Reset Game</button>
+        <button onClick=${onReset} class=${tw`p-2 bg-gray-200`} disabled=${!winner && moves}>Reset Game</button>
     </div>
     `;
 }

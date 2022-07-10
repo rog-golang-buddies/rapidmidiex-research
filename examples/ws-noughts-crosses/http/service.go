@@ -6,20 +6,21 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/gobwas/ws"
+	"github.com/google/uuid"
 
 	t "github.com/topheruk-go/util/template"
 )
 
 type Service struct {
 	// mu sync.Mutex
-	m   *chi.Mux
-	cls clients
+	m    *chi.Mux
+	pool *pool
 }
 
 func New() *Service {
 	s := &Service{
-		m:   chi.NewMux(),
-		cls: *defaultClients,
+		m:    chi.NewMux(),
+		pool: &pool{m: make(map[uuid.UUID]*conn)},
 	}
 	s.routes()
 	return s

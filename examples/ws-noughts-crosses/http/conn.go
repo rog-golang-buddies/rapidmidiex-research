@@ -14,49 +14,54 @@ import (
 	"github.com/google/uuid"
 )
 
-// basically a room
-type clients struct {
-	m map[uuid.UUID]*conn
+type pool struct {
+	m map[uuid.UUID]*conn // in-order to overcome race condition, this needs to be a
 }
 
-var defaultClients = &clients{m: make(map[uuid.UUID]*conn)}
+func (p *pool) add(c *conn) {
+	p.m[c.id] = c
+}
 
-// func (cls clients) add(c *conn) {
-// 	cls[c.id] = c
-// }
+func (p *pool) delete(c *conn) {
+	delete(p.m, c.id)
+}
 
-func (cls clients) broadcast(req websocket.Message) {
-	for i, cli := range cls.m {
+// Send message to all connections in pool
+func (p pool) broadcast(req websocket.Message) {
+	for i, cli := range p.m {
 		log.Println(">", i)
 		cli.write(req)
 	}
 }
 
 type conn struct {
-	id  uuid.UUID
-	rwc net.Conn
-	wsr *wsutil.Reader
-	wsw *wsutil.Writer
-	err error
-	cls clients
+	id   uuid.UUID
+	rwc  net.Conn
+	wsr  *wsutil.Reader
+	wsw  *wsutil.Writer
+	err  error
+	pool *pool
 }
 
 func (s *Service) newConn(rwc net.Conn) *conn {
 	c := &conn{
-		id:  uuid.New(),
-		rwc: rwc,
-		wsr: wsutil.NewReader(rwc, ws.StateServerSide),
-		wsw: wsutil.NewWriter(rwc, ws.StateServerSide, ws.OpText),
-		cls: s.cls,
+		id:   uuid.New(),
+		rwc:  rwc,
+		wsr:  wsutil.NewReader(rwc, ws.StateServerSide),
+		wsw:  wsutil.NewWriter(rwc, ws.StateServerSide, ws.OpText),
+		pool: s.pool,
 	}
 
-	s.cls.m[c.id] = c // connection has been made - tell everyone else in the pool
+	s.pool.add(c)
 	return c
 }
 
+// Keep-alive connection using an inifinte for-loop.
+// Once error, delete from pool & close connection
 func (c *conn) serve() {
 	defer c.rwc.Close()
 
+	// anon type for "connected" message type, should move to root of package
 	message := struct {
 		Type string `json:"type"`
 		Data struct {
@@ -68,22 +73,24 @@ func (c *conn) serve() {
 
 	c.write(message)
 
-	log.Println(c.cls.m)
-
 	for c.next() {
 		var msg websocket.Message
 		if c.err = c.read(&msg); c.err != nil {
 			break
 		}
-		fmt.Println(len(c.cls.m))
+		fmt.Println(len(c.pool.m))
 		// send to clients
-		go c.cls.broadcast(msg)
+		go c.pool.broadcast(msg)
 	}
 
-	delete(c.cls.m, c.id)
+	c.pool.delete(c)
 	log.Printf("connection closed: %s", c.err)
 }
 
+// Wrapper around the wsutil.Reader.NextFrame() method.
+// Returns a bool type meaning can be used with an infinite for-loop
+//
+// If error preparing or EOF then returns false, breaking the for-loop
 func (c *conn) next() bool {
 	h, err := c.wsr.NextFrame()
 	if err != nil {
@@ -98,8 +105,10 @@ func (c *conn) next() bool {
 	return true //continue as no error
 }
 
+// Reads input from client
 func (c *conn) read(v any) error { return json.NewDecoder(c.wsr).Decode(v) }
 
+// Writes back to the client & flushes buffer onced it's finished
 func (c *conn) write(v any) error {
 	if err := json.NewEncoder(c.wsw).Encode(v); err != nil {
 		return err
