@@ -1,5 +1,6 @@
 import { html, useState, tw } from "../imports.js";
 
+const ws = new WebSocket("ws://localhost:8080/ws");
 
 /**
  * @param {object} params 
@@ -11,44 +12,35 @@ import { html, useState, tw } from "../imports.js";
 function useGame({ board, turn, winner }) {
     /** @type {[{ board:(0|1|2)[]; winner:0|1|2 }, function]} */const [{ board: aBoard, winner: aWinner, moves, turn: aTurn }, setGrid] = useState({ board, turn, winner, moves: board.length });
 
-    const ws = new WebSocket("ws://localhost:8080/ws");
-    ws.addEventListener('open', e => {
-        console.log("connection opened");
-    });
 
-    ws.addEventListener('message', e => {
+    // something in this is being run a bizillion types causing it to lag after a couple games
+    // I dont know much about React so so blaming it on witchcraft
+    let count = 0;
+    const onMessage = (/**@type {MessageEvent<any>}*/e) => {
         const message = JSON.parse(e.data);
-
+        count++;
         switch (message["type"]) {
             case "join":
                 console.log(message["data"]);
                 break;
             case "play":
                 let { turn: bTurn, pos: bPos, moves: bMoves } = message["data"];
-                setGrid(function (/** @type {{ board:(0|1|2)[]; moves:number; }} */{ board: oldBoard }) {
+                setGrid(function (/** @type {{ board:(0|1|2)[]; }} */{ board: oldBoard }) {
                     oldBoard[bPos] = [1, 2][bTurn ^= 1];
                     return { board: [...oldBoard], turn: bTurn, winner: hasWinner([...oldBoard]), moves: --bMoves };
-                });
-                console.log(message["data"]);
+                }, []); //being run too many times
                 break;
             default:
                 console.error("unknown message: ", message);
         }
-    });
-
-    ws.addEventListener('close', e => {
-        console.log("closed");
-    });
-
-    ws.addEventListener("error", e => console.error(e));
-
+        console.log("new count", count);
+    };
 
     /** 
      * @param {Event} e
      * @returns {void} 
      */
-    const play = (e) => {
-        console.log(aTurn);
+    const onPlay = (e) => {
         const message = {
             type: "play",
             data: {
@@ -58,18 +50,20 @@ function useGame({ board, turn, winner }) {
             }
         };
 
+        console.log("clicked", count);
+
         ws.send(JSON.stringify(message)); // to server
 
         setGrid(function (/** @type {{ board:(0|1|2)[]; turn:1|2; moves:number; }} */{ board: oldBoard, turn: oldTurn, moves }) {
             // oldBoard[[...e.target.parentNode.children].indexOf(e.target)] = [1, 2][oldTurn ^= 1];
             oldBoard[message.data.pos] = [1, 2][oldTurn ^= 1];
             return { board: [...oldBoard], turn: oldTurn, winner: hasWinner([...oldBoard]), moves: --moves };
-        });
+        }, []);
     };
 
-    const reset = _ => setGrid(_ => ({ board, turn, winner, moves: board.length }));
+    const onReset = _ => setGrid(_ => ({ board, turn, winner, moves: board.length }), []);
 
-    return { board: aBoard, winner: aWinner, moves, play, reset };
+    return { board: aBoard, winner: aWinner, moves, play: onPlay, reset: onReset, message: onMessage };
 }
 
 /**
@@ -101,7 +95,17 @@ const hasWinner = (board) => {
 };
 
 export default function Game() {
-    const { board, winner, moves, play, reset } = useGame({ board: [0, 0, 0, 0, 0, 0, 0, 0, 0], turn: 1, winner: 0 });
+    const { board, winner, moves, play, reset, message } = useGame({ board: [0, 0, 0, 0, 0, 0, 0, 0, 0], turn: 1, winner: 0 });
+
+    ws.addEventListener('open', e => {
+        console.log("connection opened");
+    });
+    ws.addEventListener('close', e => {
+        console.log("closed");
+    });
+
+    ws.addEventListener("error", e => console.error(e));
+    ws.addEventListener('message', message);
 
     return html`
     <div class=${tw`flex-col`}>

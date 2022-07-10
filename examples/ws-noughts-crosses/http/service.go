@@ -12,14 +12,14 @@ import (
 
 type Service struct {
 	// mu sync.Mutex
-	m *chi.Mux
-	r clients
+	m   *chi.Mux
+	cls clients
 }
 
 func New() *Service {
 	s := &Service{
-		m: chi.NewMux(),
-		r: make(clients),
+		m:   chi.NewMux(),
+		cls: *defaultClients,
 	}
 	s.routes()
 	return s
