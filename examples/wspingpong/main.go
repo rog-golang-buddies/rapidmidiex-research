@@ -13,12 +13,12 @@ const (
 	LogLevelFull
 )
 
-type WSPingPongHandler struct {
+type WSPingPongServer struct {
 	LogLevel LogLevel
 }
 
 // r: not a pointer because we want to change the request
-func (h WSPingPongHandler) log(r http.Request) {
+func (h WSPingPongServer) log(r http.Request) {
 	switch h.LogLevel {
 	case LogLevelBasic:
 		log.Printf("request from [%s]\n", r.Host)
@@ -27,7 +27,7 @@ func (h WSPingPongHandler) log(r http.Request) {
 	}
 }
 
-func (h WSPingPongHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (h WSPingPongServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if r.URL.String() == "/favicon.ico" {
 		return
 	}
@@ -44,7 +44,7 @@ func StartServer(port string, loglevel LogLevel) {
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 20 * time.Second,
 		IdleTimeout:  100 * time.Second,
-		Handler: WSPingPongHandler{
+		Handler: WSPingPongServer{
 			LogLevel: loglevel,
 		},
 	}
