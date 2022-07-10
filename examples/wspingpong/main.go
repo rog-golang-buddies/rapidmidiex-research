@@ -43,10 +43,19 @@ func (h WSPingPongServer) log(r http.Request) {
 }
 
 func (h WSPingPongServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	if r.URL.String() == "/favicon.ico" {
+
+	// a manual router ;-)
+	switch r.URL.String() {
+	case "/favicon.ico":
+		return
+	case "/redirect":
+		w.Header().Add("Content-Type", "") // don't write a html body
+		http.Redirect(w, r, "/", http.StatusSeeOther)
 		return
 	}
+
 	h.log(*r)
+
 	w.Write([]byte("Hello, I am WSPingPong\n"))
 }
 
