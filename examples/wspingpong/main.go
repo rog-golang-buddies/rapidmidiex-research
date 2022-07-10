@@ -1,4 +1,4 @@
-package main
+package wspingpong
 
 import (
 	"log"
@@ -9,8 +9,8 @@ import (
 type LogLevel int
 
 const (
-	Basic LogLevel = iota
-	Full
+	LogLevelBasic LogLevel = iota
+	LogLevelFull
 )
 
 type WSPingPongHandler struct {
@@ -20,9 +20,9 @@ type WSPingPongHandler struct {
 // r: not a pointer because we want to change the request
 func (h WSPingPongHandler) log(r http.Request) {
 	switch h.LogLevel {
-	case Basic:
+	case LogLevelBasic:
 		log.Printf("request from [%s]\n", r.Host)
-	case Full:
+	case LogLevelFull:
 		log.Printf("request: [%+v]\n", r)
 	}
 }
@@ -35,20 +35,17 @@ func (h WSPingPongHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Hello, I am WSPingPong\n"))
 }
 
-func main() {
-	// Make log print a datetime and a filename:linenumber
-	log.SetFlags(log.LstdFlags | log.Lshortfile)
-
+func StartServer(port string, loglevel LogLevel) {
 	// Define our own custom server with
 	// - custom LogLevel
 	// - ...
 	s := http.Server{
-		Addr:         ":9876",
+		Addr:         port,
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 20 * time.Second,
 		IdleTimeout:  100 * time.Second,
 		Handler: WSPingPongHandler{
-			LogLevel: Full,
+			LogLevel: loglevel,
 		},
 	}
 
@@ -60,5 +57,4 @@ func main() {
 		}
 		log.Println(err)
 	}
-
 }
