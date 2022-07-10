@@ -1,4 +1,4 @@
-import { html, useState, tw } from "../imports.js";
+import { html, useState, tw, useEffect } from "../imports.js";
 
 const ws = new WebSocket("ws://localhost:8080/ws");
 
@@ -10,15 +10,14 @@ const ws = new WebSocket("ws://localhost:8080/ws");
  * @returns
  */
 function useGame({ board, turn, winner }) {
-    /** @type {[{ board:(0|1|2)[]; winner:0|1|2 }, function]} */const [{ board: aBoard, winner: aWinner, moves, turn: aTurn }, setGrid] = useState({ board, turn, winner, moves: board.length });
+    /** @type {[{ board:(0|1|2)[]; winner:0|1|2 }, function]} */const [{ board: aBoard, winner: aWinner, moves, turn: aTurn }, setGrid] = useState(() => ({ board, turn, winner, moves: board.length }));
 
 
     // something in this is being run a bizillion types causing it to lag after a couple games
     // I dont know much about React so so blaming it on witchcraft
     let count = 0;
     const onMessage = (/**@type {MessageEvent<any>}*/e) => {
-        const message = JSON.parse(e.data);
-        count++;
+        const message = JSON.parse(e.data) || {};
         switch (message["type"]) {
             case "join":
                 console.log(message["data"]);
@@ -33,7 +32,7 @@ function useGame({ board, turn, winner }) {
             default:
                 console.error("unknown message: ", message);
         }
-        console.log("new count", count);
+        console.log("new count");
     };
 
     /** 
@@ -105,7 +104,10 @@ export default function Game() {
     });
 
     ws.addEventListener("error", e => console.error(e));
-    ws.addEventListener('message', message);
+
+    useEffect(() => {
+        ws.addEventListener('message', message);
+    }, []); //have no idea why this needs to be here
 
     return html`
     <div class=${tw`flex-col`}>
