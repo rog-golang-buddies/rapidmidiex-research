@@ -4,6 +4,8 @@ import (
 	"log"
 	"net/http"
 	"time"
+
+	"github.com/davecgh/go-spew/spew"
 )
 
 type LogLevel int
@@ -11,6 +13,7 @@ type LogLevel int
 const (
 	LogLevelBasic LogLevel = iota
 	LogLevelFull
+	LogLevelFullSpew
 )
 
 type WSPingPongServer struct {
@@ -24,6 +27,9 @@ func (h WSPingPongServer) log(r http.Request) {
 		log.Printf("request from [%s]\n", r.Host)
 	case LogLevelFull:
 		log.Printf("request: [%+v]\n", r)
+	case LogLevelFullSpew:
+		log.Println()
+		spew.Dump(r)
 	}
 }
 

@@ -13,4 +13,4 @@ Research and links to potentially useful libraries or examples go in [Research](
 - [examples/p2p-webrtc](examples/p2p-webrtc/)
 - [examples/time-sync](examples/time-sync/)
 - [examples/wspingpong](examples/wspingpong/)
-
+- [example/ws-number-guesser](examples/ws-number-guesser)
