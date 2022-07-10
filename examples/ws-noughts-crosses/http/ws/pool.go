@@ -2,6 +2,7 @@ package ws
 
 import (
 	"net"
+	"sync"
 
 	"ws.rog.noughtscrosses"
 
@@ -11,11 +12,13 @@ import (
 )
 
 type Pool struct {
-	m map[uuid.UUID]*Conn // in-order to overcome race condition, this needs to be a
+	// Read/Write mutex so that we can safely read/write from/to the map
+	mu sync.RWMutex
+	m  map[uuid.UUID]*Conn
 }
 
 func NewPool() *Pool {
-	return &Pool{make(map[uuid.UUID]*Conn)}
+	return &Pool{m: make(map[uuid.UUID]*Conn)}
 }
 
 // Create a new connection and keep on an infinite loop
@@ -34,15 +37,21 @@ func (p *Pool) NewConn(rwc net.Conn) *Conn {
 }
 
 func (p *Pool) add(c *Conn) {
+	p.mu.Lock()
+	defer p.mu.Unlock()
+
 	p.m[c.id] = c
 }
 
 func (p *Pool) delete(c *Conn) {
+	p.mu.Lock()
+	defer p.mu.Unlock()
+
 	delete(p.m, c.id)
 }
 
 // Send message to all connections in pool
-func (p Pool) Broadcast(req websocket.Message) {
+func (p *Pool) Broadcast(req websocket.Message) {
 	for _, cli := range p.m {
 		cli.Write(req)
 	}
