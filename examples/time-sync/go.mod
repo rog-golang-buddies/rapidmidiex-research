@@ -1,4 +1,4 @@
-module github.com/rog-golang-buddies/realtime-midi
+module github.com/rog-golang-buddies/realtime-midi/examples/time-sync
 
 go 1.18
 

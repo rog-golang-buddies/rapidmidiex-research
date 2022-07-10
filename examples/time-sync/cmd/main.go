@@ -8,7 +8,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
-	"github.com/rog-golang-buddies/realtime-midi/handlers"
+	"github.com/rog-golang-buddies/realtime-midi/examples/time-sync/handlers"
 )
 
 func main() {
