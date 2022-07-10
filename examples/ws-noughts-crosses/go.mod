@@ -1,4 +1,4 @@
-module ws.rog.numberguesser
+module ws.rog.noughtscrosses
 
 go 1.18
 
