@@ -7,14 +7,19 @@ import (
 	"log"
 	"net"
 
-	"ws.topheruk.example"
+	"ws.rog.numberguesser"
 
 	"github.com/gobwas/ws"
 	"github.com/gobwas/ws/wsutil"
 	"github.com/google/uuid"
 )
 
+// basically a room
 type clients map[uuid.UUID]*conn
+
+func (cls clients) add(c *conn) {
+	cls[c.id] = c
+}
 
 func (cls clients) broadcast(req websocket.Message) {
 	for _, cli := range cls {
@@ -43,7 +48,7 @@ func (s *Service) newConn(rwc net.Conn) *conn {
 		cls: s.r,
 	}
 
-	s.r[c.id] = c // connection has been made - add to In-Memory Database Store
+	s.r[c.id] = c // connection has been made - tell everyone else in the pool
 	return c
 }
 
