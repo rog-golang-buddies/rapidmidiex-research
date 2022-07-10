@@ -4,9 +4,9 @@ A study on how to let multiple musicians jam together (musically) over the Inter
 
 # Structure of this repo
 
-Our own created diagrams go in [Diagrams](diagrams/README.md).
+Our own created diagrams go in [Diagrams](docs/diagrams/README.md).
 
-Research and links to potentially useful libraries or examples go in [Research](research/README.md).
+Research and links to potentially useful libraries or examples go in [Research](docs/research/README.md).
 
 # Examples!
 
