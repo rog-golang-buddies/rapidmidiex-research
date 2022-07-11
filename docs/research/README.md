@@ -46,6 +46,14 @@ Golang:
 - https://jazz-soft.net/doc/
   - used in [p2p-webrtc example](../examples/p2p-webrtc/index.html)
 
+- https://github.com/joshreiss/Working-with-the-Web-Audio-API
+  - many examples in tutorial-format about WebAudio
+  - chapter 18 and 19 are about `AudioWorklet`'s (https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Using_AudioWorklet)
+
+- https://web.dev/audio-scheduling/
+  - don't use `setTimeout` but `requestAnimationFrame` or *custom system?* 
+
+
 # CLI audio processing utility
 
 - https://github.com/faiface/beep
