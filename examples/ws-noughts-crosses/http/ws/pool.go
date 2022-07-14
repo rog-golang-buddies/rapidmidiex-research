@@ -1,58 +1,71 @@
 package ws
 
 import (
-	"net"
+	"fmt"
 	"sync"
 
-	websocket "ws.rog.noughtscrosses"
-
-	"github.com/gobwas/ws"
-	"github.com/gobwas/ws/wsutil"
-	"github.com/google/uuid"
+	chat "ws.rog.noughtscrosses"
 )
 
 type Pool struct {
-	// Read/Write mutex so that we can safely read/write from/to the map
 	mu sync.RWMutex
-	m  map[uuid.UUID]*Conn
+
+	r   chan *Client
+	unr chan *Client
+	bc  chan chat.Message
+
+	clis map[*Client]bool
 }
 
 func NewPool() *Pool {
-	return &Pool{m: make(map[uuid.UUID]*Conn)}
-}
-
-// Create a new connection and keep on an infinite loop
-func (p *Pool) NewConn(rwc net.Conn) *Conn {
-	c := &Conn{
-		id:   uuid.New(),
-		rwc:  rwc,
-		wsr:  wsutil.NewReader(rwc, ws.StateServerSide),
-		wsw:  wsutil.NewWriter(rwc, ws.StateServerSide, ws.OpText),
-		pool: p,
+	p := &Pool{
+		r:    make(chan *Client),
+		unr:  make(chan *Client),
+		bc:   make(chan chat.Message),
+		clis: make(map[*Client]bool),
 	}
-	p.add(c)
-
-	go c.serve()
-	return c
+	go p.run()
+	return p
 }
 
-func (p *Pool) add(c *Conn) {
+func (p *Pool) broadcast(v any) {
+	for cli := range p.clis {
+		cli.write(v)
+	}
+}
+
+func (p *Pool) add(cli *Client) {
 	p.mu.Lock()
 	defer p.mu.Unlock()
 
-	p.m[c.id] = c
+	p.clis[cli] = true
+	// This will give an error in the client as it does not conform to my noughtscrosses.Message type
+	p.broadcast(fmt.Sprintf("New User Joined... Size of Connection Pool: %d", len(p.clis)))
+
+	go cli.serve()
 }
 
-func (p *Pool) delete(c *Conn) {
+func (p *Pool) remove(cli *Client) {
 	p.mu.Lock()
-	defer p.mu.Unlock()
+	defer func() {
+		p.mu.Unlock()
+		cli.close()
+	}()
 
-	delete(p.m, c.id)
+	delete(p.clis, cli)
+	// This will give an error in the client as it does not conform to my noughtscrosses.Message type
+	p.broadcast(fmt.Sprintf("User Disconnected... Size of Connection Pool: %d", len(p.clis)))
 }
 
-// Send message to all connections in pool
-func (p *Pool) Broadcast(req websocket.Message) {
-	for _, cli := range p.m {
-		cli.Write(req)
+func (p *Pool) run() {
+	for {
+		select {
+		case cli := <-p.r:
+			p.add(cli)
+		case cli := <-p.unr:
+			p.remove(cli)
+		case msg := <-p.bc:
+			p.broadcast(msg)
+		}
 	}
 }
