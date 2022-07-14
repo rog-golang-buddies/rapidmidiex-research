@@ -8,6 +8,8 @@ type contextKey struct {
 
 func (k *contextKey) String() string { return "net/http context value " + k.name }
 
+var HTTPConnKey = &contextKey{"http-conn"}
+
 type MessageType int
 
 const (

@@ -4,10 +4,12 @@ import (
 	"log"
 	"net/http"
 
-	ptth "ws.rog.noughtscrosses/http"
+	// websocket "ws.rog.noughtscrosses"
+
+	service "ws.rog.noughtscrosses/http"
 )
 
 func main() {
-	log.Println("listening on port 8080")
-	http.ListenAndServe(":8080", ptth.New())
+	log.Println("listening on port 8081")
+	http.ListenAndServe(":8081", service.New())
 }
