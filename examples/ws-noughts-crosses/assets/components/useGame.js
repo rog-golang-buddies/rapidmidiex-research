@@ -41,6 +41,9 @@ export function useGame({ board, turn, winner, ws }) {
      * @returns {void} 
      */
     const onPlay = (e) => {
+        // don't run if it's not a button
+        if (e.composedPath()[0].localName !== "button") return;
+
         const message = {
             type: "play",
             data: {

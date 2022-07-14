@@ -1,7 +1,7 @@
 import { html, useState, tw, useEffect } from "../imports.js";
 import { useGame } from "./useGame.js";
 
-const ws = new WebSocket("ws://localhost:8080/ws");
+const ws = new WebSocket("ws://localhost:8081/play");
 
 export default function Game() {
     const { board, winner, moves, onPlay, onReset, onMessage } = useGame({ board: [0, 0, 0, 0, 0, 0, 0, 0, 0], turn: 1, winner: 0, ws });
