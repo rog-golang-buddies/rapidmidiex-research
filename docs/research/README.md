@@ -57,3 +57,11 @@ Golang:
 # CLI audio processing utility
 
 - https://github.com/faiface/beep
+
+# Web Sockets
+
+- https://centrifugal.github.io/centrifugo/blog/scaling_websocket/
+  - setting up web sockets for scalability
+
+- https://www.freecodecamp.org/news/million-websockets-and-go-cc58418460bb/
+  - handling millions of web sockets
