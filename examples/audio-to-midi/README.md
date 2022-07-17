@@ -6,14 +6,14 @@ this is an example of note detection for instruments without MIDI support. it de
 
 run Server:
 
-- first install the API dependencies using _go mod tidy_ command.
-- start the server using _go run cmd/main.go_ command.
+- first install the API dependencies using `go mod tidy` command.
+- start the server using `go run cmd/main.go` command.
 
 run Client:
 
-- move to client directory: _cd client_
-- install node modules: _yarn_ or _npm install_
-- start client: _yarn run dev_
+- move to client directory: `cd client`
+- install node modules: `yarn` or `npm install`
+- start client: `yarn run dev`
 - open _http://localhost:3000_ in your browser
 
 ## What is an MIDI number?
@@ -30,8 +30,8 @@ sending off state is not implemented yet.
 
 ### TODO
 
-- detect multiple notes playing at the same time
-- detect the velocity of playing note
-- add cli support
-- add midi to audio support
-- add mult-client connection support
+- [ ] detect multiple notes playing at the same time
+- [ ] detect the velocity of playing note
+- [ ] add cli support
+- [ ] add midi to audio support
+- [ ] add mult-client connection support

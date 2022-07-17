@@ -2,8 +2,8 @@
 
 ## How to run?
 
-- run _go mod tidy_ to install libraries
-- run _go run cmd/main.go_ to start server
+- run `go mod tidy` to install libraries
+- run `go run cmd/main.go` to start server
 
 ## How to use?
 

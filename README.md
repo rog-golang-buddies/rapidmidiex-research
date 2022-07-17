@@ -13,4 +13,5 @@ Research and links to potentially useful libraries or examples go in [Research](
 - [examples/p2p-webrtc](examples/p2p-webrtc/)
 - [examples/time-sync](examples/time-sync/)
 - [examples/wspingpong](examples/wspingpong/)
-- [example/ws-noughts-crosses](examples/ws-noughts-crosses)
+- [examples/ws-noughts-crosses](examples/ws-noughts-crosses)
+- [examples/audio-to-midi](examples/audio-to-midi)
