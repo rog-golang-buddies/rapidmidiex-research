@@ -26,6 +26,7 @@ Next we collect what could actually be useful for our project:
 Golang:
 
 - https://libs.garden/go/search?q=webrtc
+  - https://pion.ly/
 
 # MIDI
 
@@ -58,10 +59,37 @@ Golang:
 
 - https://github.com/faiface/beep
 
-# Web Sockets
+# Websockets
+
+See [Websockets.md](Websockets.md) for some notes on the Websocket-protocol as per RFC's.
+
+Golang:
+
+- https://pkg.go.dev/golang.org/x/net/websocket
+  - (per documentation:) *lacks features*
+- https://github.com/gorilla/websocket
+  - (per documentation:) *complete and tested*, passes *Autobahn Test Suite*
+    - https://github.com/crossbario/autobahn-testsuite
+  - probably the most used websocket-implementation?
+- https://github.com/nhooyr/websocket
+  - passes *Autobahn Test Suite*
+  - Some interesting features that **might** make it more useful for our project
+    - Zero alloc reads and writes
+    - Supports compiling to **WASM**
+- https://github.com/gobwas/ws
+  - written for *mail.ru* to handle millions of users checking their e-mail, see https://www.freecodecamp.org/news/million-websockets-and-go-cc58418460bb
+  - speaks of *Zero Copy HTTP Upgrades* (https://github.com/gobwas/ws#zero-copy-upgrade)
+    - this is when **one** client's HTTP-connection gets upgraded to a `ws`-connection
+    - important for when you have many millions of clients checking e-mail
+    - not very important for our use case since a jamming session would reasonably have only about a dozen people
+      - unless we want to make it **MMOJ** (Massive Multiplayer Online Jamming) :wink: but even then the *joining a jam-session*-part is not the real bottleneck
+
+# Building on top of websockets
 
 - https://centrifugal.github.io/centrifugo/blog/scaling_websocket/
   - setting up web sockets for scalability
 
-- https://www.freecodecamp.org/news/million-websockets-and-go-cc58418460bb/
-  - handling millions of web sockets
+# Utility
+
+- https://pkg.go.dev/golang.org/x/time/rate
+  - used in websocket-chat-example: https://github.com/nhooyr/websocket/blob/master/examples/chat
