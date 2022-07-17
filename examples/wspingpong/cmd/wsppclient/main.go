@@ -10,6 +10,8 @@ import (
 	"time"
 
 	"github.com/hansvb/quickmenu"
+	"nhooyr.io/websocket"
+	"nhooyr.io/websocket/wsjson"
 )
 
 type ShowBodySetting int
@@ -66,13 +68,39 @@ func (rt loggingRoundTripper) RoundTrip(r *http.Request) (*http.Response, error)
 	return rsp, err
 }
 
-func makeReq(url string) *http.Request {
+func doRegularHttpReq(c *http.Client, url string) {
 	log.Println("Making request " + url)
 	req, err := http.NewRequestWithContext(context.Background(), http.MethodGet, url, nil)
 	if err != nil {
+		log.Println(err)
+		return
+	}
+
+	log.Println("Doing request " + url)
+	c.Do(req)
+	if err != nil {
 		log.Fatalln(err)
 	}
-	return req
+}
+
+func doWebsocketReq(c *http.Client, url string) {
+	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
+	defer cancel()
+
+	wsc, _, err := websocket.Dial(ctx, url, nil)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	defer wsc.Close(websocket.StatusInternalError, "the client-sky is falling")
+
+	err = wsjson.Write(ctx, wsc, "hi")
+	if err != nil {
+		log.Println(err)
+		return
+	}
+
+	wsc.Close(websocket.StatusNormalClosure, "")
 }
 
 func main() {
@@ -88,20 +116,19 @@ func main() {
 		},
 	}
 
-	var req *http.Request
 	qm := quickmenu.QuickMenu{}
 
 	url1 := "http://localhost:9876/"
-	qm.Add(url1, func() { req = makeReq(url1) })
+	qm.Add(url1, func() { doRegularHttpReq(c, url1) })
 
 	url2 := "http://localhost:9876/redirect"
-	qm.Add(url2, func() { req = makeReq(url2) })
+	qm.Add(url2, func() { doRegularHttpReq(c, url2) })
 
-	qm.Prompt()
+	url3 := "http://localhost:9876/openandclosewebsocket"
+	qm.Add("do regular http req to "+url3, func() { doRegularHttpReq(c, url3) })
 
-	_, err := c.Do(req)
-	if err != nil {
-		log.Fatalln(err)
-	}
+	url4 := "ws://localhost:9876/openandclosewebsocket"
+	qm.Add("do websocket req to "+url4, func() { doWebsocketReq(c, url4) })
 
+	qm.PromptLoop()
 }

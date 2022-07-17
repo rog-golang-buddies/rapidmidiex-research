@@ -18,10 +18,10 @@ From the docs at https://pkg.go.dev/nhooyr.io/websocket#Conn.Ping:
 
 # TODO
 
-- [x] A simple custom http-server with just one route
+- [x] A simple custom http-server without a mux
 - [x] Separate server in separate cmd (run with `go run cmd/wsppsrv/main.go`)
 - [x] Client app for easy testing (run with `go run cmd/wsppclient/main.go`) 
-- [ ] Upgrade client-connections to websocket-connections
+- [x] Upgrade client-connections to websocket-connections (`/openandclosewebsocket`-route)
 - [ ] Store all connected clients and show them all on page refresh
 - [ ] Add a bubbletea-TUI
 - [ ] ...
@@ -30,8 +30,8 @@ From the docs at https://pkg.go.dev/nhooyr.io/websocket#Conn.Ping:
 
 ## no mux
 
-It might be a bit contrarian but this example will only be using **one route**
-and therefore we do not need a **mux**. 
+It might be a bit contrarian but this example doesn't use a **mux** or `HandleFunc`'s.
+We want to focus on websocket-protocol-specifics so we just use `r.URL.String()` to check the `URL` in the `http.Request`.
 
 ## custom server
 
@@ -47,6 +47,13 @@ Go, page 251*):
 
 It just pollutes our logging?
 
+# Testing with wireshark
 
+Workflow:
 
+- start wireshark with sufficient privileges (and perhaps install a capture-driver) to **capture packets on the local loopback interface**
+- `go run cmd/wsppsrv/main.go`
+- `go run cmd/wsppclient/main.go` and choose a request to send
+- explore the packets in wireshark:
 
+![](img/wireshark.png)
