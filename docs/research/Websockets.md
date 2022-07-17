@@ -1,5 +1,23 @@
 # Websockets
 
+## TLDR
+
+Websockets can be called a *wire*-protocol where the smallest piece of communication is called the **frame**.
+For security, **all frames from client to server** are **masked** (i.e. XOR-encrypted).
+(Server-to-client frames are NOT masked.)
+The key used for *masking* is chosen by the client **for each frame**.
+
+**Data-frames** can be **Text**-frames or **Binary**-frames.
+An application-specific websocket-**message** could be sent over multiple **data-frame**'s (especially bigger messages).
+
+**Control-frames** (like **Ping-**, **Pong** and **Close**-frames) are always <= 125 bytes.
+
+Upon handshake (which happens over the `http(s)`-protocol), the client can negotiate **subprotocols** (like `wamp`) and **extensions**. 
+Of course, an application developer can choose their own protocol in stead of one of the existing ones.
+
+
+## Protocol
+
 https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_servers
 
   - this is basically a synopsis of the **RFC6455**-spec, talks about
