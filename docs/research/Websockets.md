@@ -142,6 +142,25 @@ Server: (process complete message) Happy new year to you too!
         - i.e. not predictable from masking keys used in previous frames
       - masking-algorithm is XOR-based, doesn't change payload-length
 
+## More information
+
+- https://lucumr.pocoo.org/2012/9/24/websockets-101/
+  - by **Armin Ronacher**, creator of flask
+  - Keep in mind: it's an OLD document (**2012**)
+  - advises to always use **websocket through TLS** so intermediates can't mess it up
+  - different URL-scheme ( `ws(s)`) with specific grammar
+    - no anchors (`#foo`)
+  - problems with HTTP/TCP-proxies
+  - doesn't like that ping/pong has payload (the websocket-browser-API doesn't add payload?)
+  - closing handshake: client is supposed to give server some time to close
+    - Firefox cares and will also reconnect after TCP disonnection?
+  - if no browser required, just speak TCP?
+- https://hpbn.co/websocket/
+  - one chapter of the book **High Performance Browser Networking** by **Ilya Grigorik** (publisher: O'Reilly)
+  - https://www.igvita.com/
+- the book **WebSocket, Lightweight Client-Server Communications** by **Andrew Lombardi** (publisher: O'Reilly)
+
+
 ## Reference
 
 https://www.iana.org/assignments/websocket/websocket.xml

@@ -61,7 +61,7 @@ Golang:
 
 # Websockets
 
-See [Websockets.md](Websockets.md) for some notes on the Websocket-protocol as per RFC's.
+See [Websockets.md](Websockets.md) for some notes on the Websocket-protocol as per RFC's and other useful websites.
 
 Golang:
 
@@ -70,12 +70,13 @@ Golang:
 - https://github.com/gorilla/websocket
   - (per documentation:) *complete and tested*, passes *Autobahn Test Suite*
     - https://github.com/crossbario/autobahn-testsuite
-  - probably the most used websocket-implementation?
+  - probably the most used websocket-implementation
 - https://github.com/nhooyr/websocket
   - passes *Autobahn Test Suite*
   - Some interesting features that **might** make it more useful for our project
     - Zero alloc reads and writes
     - Supports compiling to **WASM**
+    - solves a problem with closing handshake that gorilla still has (https://github.com/gorilla/websocket/issues/448)
 - https://github.com/gobwas/ws
   - written for *mail.ru* to handle millions of users checking their e-mail, see https://www.freecodecamp.org/news/million-websockets-and-go-cc58418460bb
   - speaks of *Zero Copy HTTP Upgrades* (https://github.com/gobwas/ws#zero-copy-upgrade)
@@ -84,10 +85,25 @@ Golang:
     - not very important for our use case since a jamming session would reasonably have only about a dozen people
       - unless we want to make it **MMOJ** (Massive Multiplayer Online Jamming) :wink: but even then the *joining a jam-session*-part is not the real bottleneck
 
-# Building on top of websockets
+# Websocket performance
 
 - https://centrifugal.github.io/centrifugo/blog/scaling_websocket/
   - setting up web sockets for scalability
+  - basically this article is promotion for https://github.com/centrifugal/centrifuge
+  - talks about
+    - the different golang-libraries, author prefers gorilla
+    - OS-tuning: a file descriptor per connection? 
+      - https://docs.riak.com/riak/kv/2.2.3/using/performance/open-files-limit.1.html
+      - linux: `ulimit -n`
+      - macos: `launchctl limit maxfiles`
+      - or: https://pkg.go.dev/golang.org/x/net/netutil#LimitListener
+      
+      - or some low-level TCP/IP-settings: https://gist.github.com/mustafaturan/47268d8ad6d56cadda357e4c438f51ca
+    - pub/sub-brokers (RabbitMQ, Kafka, Redis, ...)
+    - massive reconnect problem
+    - benefits of using **message event stream** (a buffer with client-state)
+  - https://crossbario.com/blog/Dissecting-Websocket-Overhead/
+    - some benchmarks on a GbE-switch
 
 # Utility
 
