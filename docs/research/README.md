@@ -22,6 +22,9 @@ Next we collect what could actually be useful for our project:
   - `RTCDataChannel` (similar API to websocket but latency)
   - `getStats`
 - requires SIP, **SIP over websockets (RFC7118)**, XMPP (Jabber), ... for signaling
+- The official examples:
+  - https://webrtc.github.io/samples/
+    - https://github.com/webrtc/samples
 
 Golang:
 
@@ -54,10 +57,58 @@ Golang:
 - https://web.dev/audio-scheduling/
   - don't use `setTimeout` but `requestAnimationFrame` or *custom system?* 
 
+- https://meowni.ca/posts/metronomes/
+  - blog article about **keeping time** in Javascript
+  - quite recent: 2019-09-10
+  - compares
+    - `setInterval`
+    - `setInterval` in a `Worker` 
+    - prescheduled audio events in Web Audio API
 
-# CLI audio processing utility
+- https://blog.logrocket.com/build-native-audio-plugin-elementary/
+  - an article about using the https://www.elementary.audio/ framework
+    - Elementary is not **just** front-end:
+      - for the front-end (web): https://www.elementary.audio/docs/packages/web-renderer
+      - local on a machine (nodejs): https://www.elementary.audio/docs/packages/node-renderer
+      - as a VST/AUv3-plugin for in a DAW: https://www.elementary.audio/docs/packages/plugin-renderer
+    - they have commercial aspirations:
+      - VST/AUv3-plugin not free ($$$)
+      - a marketplace for plugins: https://www.elementary.audio/marketplace
+      - ...
+
+- Soundfonts
+  - https://github.com/gleitz/midi-js-soundfonts
+
+# WASM and Golang
+
+- https://github.com/wasmerio/wasmer-go
+  - go-interface around https://github.com/wasmerio/wasmer
+    - wasmer allows running `.wasm`-executables even outside of the browser
+
+# Audio processing
+
+- https://engineering.atspotify.com/2022/06/meet-basic-pitch/
+  - research from
+    - Spotify's Audio Intelligence Lab (https://research.atspotify.com/audio-intelligence/)
+    - https://www.soundtrap.com/
+  - How to convert audio to midi, fast and in realtime
+  - uses ML (Machine Learning)
+  - ...
+
+Golang:
+
+> Most likely all audio-stuff in golang requires some non-Go-code (`cgo`, `clang`, ...) under the hood. This is **not** ideal!
+> We must consider this as potential time-stealing problems when building/testing and at a later stage supportability.
+> TODO: keep track of additional dependencies on each platform!
 
 - https://github.com/faiface/beep
+  - uses https://github.com/hajimehoshi/oto
+    - a low-level library to play sound
+    - cross-platform, even for mobile OS's?
+- https://github.com/MarkKremer/microphone
+  - uses https://github.com/gordonklaus/portaudio
+    - a Go-interface around the http://www.portaudio.com/ audio-library
+      - cross-platform but apparently not really for mobile?
 
 # Websockets
 
