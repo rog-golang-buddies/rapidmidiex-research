@@ -33,6 +33,9 @@ Golang:
 
 # MIDI
 
+- https://github.com/ldrolez/free-midi-chords
+    - Python-script to generate a midi-file for every chords (and chord-progressions) in all keys (7900+ midi-files)
+
 Golang:
 
 - https://libs.garden/go/search?q=midi
