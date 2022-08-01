@@ -29,9 +29,11 @@ func logBasicRequest(r http.Request) {
 	log.Printf("[%s]-request from [%s] using [%s] with [%d] headers\n", r.Method, r.Host, r.Proto, len(r.Header))
 }
 
+// Don't call this function! Only call `WSPingPongServer.log`. Otherwise call-depth is not correct.
+// TODO: make this function detect if it's called by `WSPingPongServer.log` or something else.
 func logBasicWithHeadersRequest(r http.Request) {
 	s := fmt.Sprintf("[%s]-request from [%s] using [%s] with [%d] headers\n", r.Method, r.Host, r.Proto, len(r.Header))
-	log.Output(2, s) // use call-depth 2 to log the line-number of the calling function
+	log.Output(3, s) // use call-depth 3 to log the line-number of the original calling function
 	if len(r.Header) > 0 {
 		for k, v := range r.Header {
 			fmt.Printf("    %s: %v\n", k, v)
@@ -70,7 +72,7 @@ func (h WSPingPongServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			log.Println(err)
 			return
 		}
-		logBasicWithHeadersRequest(*r)
+		h.log(*r)
 		defer c.Close(websocket.StatusInternalError, "the server-sky is falling")
 
 		ctx, cancel := context.WithTimeout(r.Context(), time.Second*10)
