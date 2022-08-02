@@ -1,4 +1,12 @@
 
+# v0.0.1 diagrams
+
+![](gen/apps-v0.0.1.svg)
+
+source: [](src/apps-v0.0.1.monopic)
+
+or use exported `.txt`: [](src/apps-v0.0.1.txt)
+
 # General Info
 
 ## Directories in this repo
@@ -9,44 +17,51 @@
 For completeness, consider adding a note in this `README` how the diagram was generated.
 Multiple generated diagrams from one source is perfectly acceptable :smile:.
 
-## `.wsd`
+## Diagramming-tools
+
+### `.wsd`
 
 https://plantuml.com/
 
 VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml
 
-## `.seqdiag`
+### `.seqdiag`
 
 https://github.com/blockdiag/seqdiag
 
+### `.monopic`
 
-# midi-ping-test
+https://monodraw.helftone.com/
+
+# Various early diagrams
+
+## midi-ping-test
 
 source: [](src/midi-ping-test.seqdiag)
 
 ![](gen/midi-ping-test.svg)
 
-# peer-to-peer_mid
+## peer-to-peer_mid
 
 source: [](src/peer-to-peer_midi.wsd)
 
-# clock_sync
+## clock_sync
 
 source: [](src/clock_sync.wsd)
 
-# webRTC-connect
+## webRTC-connect
 
 source: [](src/webRTC-connect.seqdiag)
 
 ![](gen/webRTC-connect.svg)
 
-# user-journey
+## user-journey
 
 source: [](src/user-journey.seqdiag)
 
 ![](gen/user-journey.svg)
 
-# user-auth-flow
+## user-auth-flow
 
 source: [](src/user-auth-flow.seqdiag)
 
