@@ -160,6 +160,13 @@ Golang:
   - https://crossbario.com/blog/Dissecting-Websocket-Overhead/
     - some benchmarks on a GbE-switch
 
+# SSE
+
+Server-Sent Events
+
+- https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events
+    - browser limit of 6 open connections when not using HTTP/2
+
 # Utility
 
 - https://pkg.go.dev/golang.org/x/time/rate
