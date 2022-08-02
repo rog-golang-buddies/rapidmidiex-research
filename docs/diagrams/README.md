@@ -1,4 +1,12 @@
 
+# v0.0.1 diagrams
+
+![](gen/apps-v0.0.1.svg)
+
+source: [](src/apps-v0.0.1.monopic)
+
+or use exported `.txt`: [](src/apps-v0.0.1.txt)
+
 # General Info
 
 ## Directories in this repo
