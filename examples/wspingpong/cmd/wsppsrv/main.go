@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"github.com/rog-golang-buddies/realtime-midi/examples/wspingpong"
+	"github.com/rog-golang-buddies/rapidmidiex-research/examples/wspingpong"
 )
 
 func main() {
