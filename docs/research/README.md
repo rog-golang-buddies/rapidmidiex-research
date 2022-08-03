@@ -138,6 +138,7 @@ Golang:
     - important for when you have many millions of clients checking e-mail
     - not very important for our use case since a jamming session would reasonably have only about a dozen people
       - unless we want to make it **MMOJ** (Massive Multiplayer Online Jamming) :wink: but even then the *joining a jam-session*-part is not the real bottleneck
+  - an example how to connect 2 go-apps: https://itnext.io/websocket-communication-between-two-go-programs-the-easy-way-d8c9cf40043f
 
 # Websocket performance
 
@@ -158,6 +159,13 @@ Golang:
     - benefits of using **message event stream** (a buffer with client-state)
   - https://crossbario.com/blog/Dissecting-Websocket-Overhead/
     - some benchmarks on a GbE-switch
+
+# SSE
+
+Server-Sent Events
+
+- https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events
+    - browser limit of 6 open connections when not using HTTP/2
 
 # Utility
 
