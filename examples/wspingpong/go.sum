@@ -26,8 +26,8 @@ github.com/google/go-cmp v0.4.0/go.mod h1:v8dTdLbMG2kIc/vJvl+f65V22dbkXbowE6jgT/
 github.com/google/gofuzz v1.0.0/go.mod h1:dBl0BpW6vV/+mYPU4Po3pmUjxk6FQPldtuIdl/M65Eg=
 github.com/gorilla/websocket v1.4.1 h1:q7AeDBpnBk8AogcD4DSag/Ukw/KV+YhzLj2bP5HvKCM=
 github.com/gorilla/websocket v1.4.1/go.mod h1:YR8l580nyteQvAITg2hZ9XVh4b55+EU/adAjf1fMHhE=
-github.com/hansvb/quickmenu v0.0.3 h1:VmILi9Rdc/wT9sS4AASqKf5LlpJmCcF6MXY+Xz5/UxU=
-github.com/hansvb/quickmenu v0.0.3/go.mod h1:2mBBL36WLkhpq2qgFaz7kymvNSsfAYgSJ20WDE3fEDE=
+github.com/hansvb/quickmenu v0.0.4 h1:NpQKhVReUsEslsd5Ov55FYFbAFjkk9GEqTFGl0PjPQU=
+github.com/hansvb/quickmenu v0.0.4/go.mod h1:2mBBL36WLkhpq2qgFaz7kymvNSsfAYgSJ20WDE3fEDE=
 github.com/json-iterator/go v1.1.9 h1:9yzud/Ht36ygwatGx56VwCZtlI/2AD15T1X2sjSuGns=
 github.com/json-iterator/go v1.1.9/go.mod h1:KdQUCv79m/52Kvf8AW2vK1V8akMuk1QjK/uOdHXbAo4=
 github.com/klauspost/compress v1.10.3 h1:OP96hzwJVBIHYU52pVTI6CczrxPvrGfgqF9N5eTO0Q8=
@@ -41,6 +41,8 @@ github.com/modern-go/concurrent v0.0.0-20180228061459-e0a39a4cb421/go.mod h1:6dJ
 github.com/modern-go/reflect2 v0.0.0-20180701023420-4b7aa43c6742 h1:Esafd1046DLDQ0W1YjYsBW+p8U2u7vzgW2SQVmlNazg=
 github.com/modern-go/reflect2 v0.0.0-20180701023420-4b7aa43c6742/go.mod h1:bx2lNnkwVCuqBIxFjflWJWanXIb3RllmbCylyMrvgv0=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
+github.com/rog-golang-buddies/realtime-midi/examples/wspingpong v0.0.0-20220803112956-1f492531922e h1:CFejumK4T5bqFBW2stKyka6ppUpkKbjioPIBTsouh0A=
+github.com/rog-golang-buddies/realtime-midi/examples/wspingpong v0.0.0-20220803112956-1f492531922e/go.mod h1:SYzbekSmJSLgDc7TAIwWKgglnFhhTrS86j/2Y7l9Lgk=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/testify v1.3.0/go.mod h1:M5WIy9Dh21IEIfnGCwXGc5bZfKNJtfHm1UVUgZn+9EI=
 github.com/stretchr/testify v1.4.0/go.mod h1:j7eGeouHqKxXV5pUuKE4zz7dFj8WfuZ+81PSLYec5m4=
