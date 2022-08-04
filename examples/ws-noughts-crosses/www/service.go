@@ -4,10 +4,10 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/v5"
 	"github.com/gorilla/websocket"
-	"ws.rog.noughtscrosses/http/ws"
-	// c"ws.rog.noughtscrosses"
+
+	"ws.rog.noughtscrosses/www/ws"
 )
 
 type contextKey struct {

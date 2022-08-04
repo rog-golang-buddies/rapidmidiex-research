@@ -1,4 +1,4 @@
-import { useState } from "../imports.js";
+import { useState, useEffect, useRef } from "../imports.js";
 
 const defaultGameState = () => ({ board: [0, 0, 0, 0, 0, 0, 0, 0, 0], turn: false, winner: 0, moves: 9 });
 
@@ -12,8 +12,10 @@ const defaultGameState = () => ({ board: [0, 0, 0, 0, 0, 0, 0, 0, 0], turn: fals
  * @param {WebSocket} params.ws 
  * @returns
  */
-export function useGame({ board, turn, winner, ws }) {
+export function useGame({ board, turn, winner, url }) {
     /** @type {[{ board:(0|1|2)[]; winner:0|1|2; moves:number; turn:boolean }, function]} */const [{ board: curBoard, winner: curWinner, moves, turn: curTurn }, setGrid] = useState(defaultGameState);
+    const ws = useRef(null);
+
 
     const onMessage = (/**@type {MessageEvent<any>}*/e) => {
         const message = JSON.parse(e.data) || {};
@@ -53,7 +55,7 @@ export function useGame({ board, turn, winner, ws }) {
             }
         };
 
-        ws.send(JSON.stringify(message)); // to server
+        ws.current.send(JSON.stringify(message)); // to server
 
         // TODO - can only make move if its their turn
         setGrid(function (/** @type {{ board:(0|1|2)[]; turn:boolean; moves:number; }} */{ board, turn, moves }) {
@@ -65,12 +67,20 @@ export function useGame({ board, turn, winner, ws }) {
 
     const onReset = _ => {
         const message = { type: "reset", data: null };
-        ws.send(JSON.stringify(message));
+        ws.current.send(JSON.stringify(message));
 
         setGrid(defaultGameState);
     };
 
-    return { board: curBoard, winner: curWinner, moves, onPlay, onReset, onMessage };
+    useEffect(() => {
+        ws.current = new WebSocket(url);
+        ws.current.addEventListener('open', e => console.log("connection opened"));
+        ws.current.addEventListener('close', e => console.log("closed"));
+        ws.current.addEventListener("error", e => console.error(e));
+        ws.current.addEventListener('message', onMessage);
+    }, []);
+
+    return { board: curBoard, winner: curWinner, moves, onPlay, onReset };
 }
 
 /**

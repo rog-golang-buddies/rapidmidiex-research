@@ -1,17 +1,16 @@
 import { html, useState, tw, useEffect } from "../imports.js";
 import { useGame } from "./useGame.js";
 
-const ws = new WebSocket("ws://localhost:8081/play");
 
 export default function Game() {
-    const { board, winner, moves, onPlay, onReset, onMessage } = useGame({ board: [0, 0, 0, 0, 0, 0, 0, 0, 0], turn: 1, winner: 0, ws });
+    const { board, winner, moves, onPlay, onReset } = useGame({ board: [0, 0, 0, 0, 0, 0, 0, 0, 0], turn: 1, winner: 0, url: "ws://localhost:8888/play" });
 
-    useEffect(() => {
-        ws.addEventListener('open', e => console.log("connection opened"));
-        ws.addEventListener('close', e => console.log("closed"));
-        ws.addEventListener("error", e => console.error(e));
-        ws.addEventListener('message', onMessage);
-    }, []); //have no idea why this needs to be here
+    // useEffect(() => {
+    //     ws.addEventListener('open', e => console.log("connection opened"));
+    //     ws.addEventListener('close', e => console.log("closed"));
+    //     ws.addEventListener("error", e => console.error(e));
+    //     ws.addEventListener('message', onMessage);
+    // }, []); //have no idea why this needs to be here
 
     return html`
     <div class=${tw`flex-col`}>
