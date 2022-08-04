@@ -10,26 +10,26 @@ import (
 type Pool struct {
 	mu sync.RWMutex
 
-	r   chan *Client
-	unr chan *Client
-	bc  chan chat.Message
+	register   chan *Client
+	unregister chan *Client
+	messages   chan chat.Message
 
-	clis map[*Client]bool
+	clients map[*Client]bool
 }
 
 func NewPool() *Pool {
 	p := &Pool{
-		r:    make(chan *Client),
-		unr:  make(chan *Client),
-		bc:   make(chan chat.Message),
-		clis: make(map[*Client]bool),
+		register:   make(chan *Client),
+		unregister: make(chan *Client),
+		messages:   make(chan chat.Message),
+		clients:    make(map[*Client]bool),
 	}
 	go p.run()
 	return p
 }
 
 func (p *Pool) broadcast(v any) {
-	for cli := range p.clis {
+	for cli := range p.clients {
 		cli.write(v)
 	}
 }
@@ -38,9 +38,9 @@ func (p *Pool) add(cli *Client) {
 	p.mu.Lock()
 	defer p.mu.Unlock()
 
-	p.clis[cli] = true
-	// This will give an error in the client as it does not conform to my noughtscrosses.Message type
-	p.broadcast(fmt.Sprintf("New User Joined... Size of Connection Pool: %d", len(p.clis)))
+	p.clients[cli] = true
+
+	p.broadcast(fmt.Sprintf("New User Joined... Size of Connection Pool: %d", len(p.clients)))
 
 	go cli.serve()
 }
@@ -52,19 +52,19 @@ func (p *Pool) remove(cli *Client) {
 		cli.close()
 	}()
 
-	delete(p.clis, cli)
+	delete(p.clients, cli)
 	// This will give an error in the client as it does not conform to my noughtscrosses.Message type
-	p.broadcast(fmt.Sprintf("User Disconnected... Size of Connection Pool: %d", len(p.clis)))
+	p.broadcast(fmt.Sprintf("User Disconnected... Size of Connection Pool: %d", len(p.clients)))
 }
 
 func (p *Pool) run() {
 	for {
 		select {
-		case cli := <-p.r:
+		case cli := <-p.register:
 			p.add(cli)
-		case cli := <-p.unr:
+		case cli := <-p.unregister:
 			p.remove(cli)
-		case msg := <-p.bc:
+		case msg := <-p.messages:
 			p.broadcast(msg)
 		}
 	}

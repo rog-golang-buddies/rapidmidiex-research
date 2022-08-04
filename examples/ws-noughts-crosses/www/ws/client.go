@@ -10,7 +10,7 @@ import (
 
 func NewClient(p *Pool, rwc *websocket.Conn) error {
 	c := &Client{rwc, p}
-	p.r <- c
+	p.register <- c
 	return c.serve()
 }
 
@@ -20,7 +20,7 @@ type Client struct {
 }
 
 func (c *Client) close() error {
-	c.p.unr <- c
+	c.p.unregister <- c
 	return c.rwc.Close()
 }
 
@@ -34,13 +34,13 @@ func (cli *Client) serve() error {
 	for {
 		var msg chat.Message
 		if err := cli.read(&msg); err != nil {
-			cli.p.unr <- cli
+			cli.p.unregister <- cli
 			return err
 		}
 
 		// doSomething with message
 
-		cli.p.bc <- msg
+		cli.p.messages <- msg
 		fmt.Printf("Message Received: %+v\n", msg)
 	}
 }
