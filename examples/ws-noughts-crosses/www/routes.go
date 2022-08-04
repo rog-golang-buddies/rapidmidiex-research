@@ -1,9 +1,9 @@
-package http
+package www
 
 import (
 	"net/http"
 
-	t "github.com/topheruk-go/util/template"
+	t "github.com/hyphengolang/prelude/template"
 )
 
 func (s *Service) routes() {

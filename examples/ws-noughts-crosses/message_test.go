@@ -1,4 +1,4 @@
-package websocket
+package wsnoughtscrosses
 
 import (
 	"encoding/json"

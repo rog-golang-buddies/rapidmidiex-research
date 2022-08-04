@@ -1,15 +1,13 @@
-package http
+package www
 
 import (
 	"context"
 	"fmt"
 	"net/http"
 
-	// h "ws-chat.example/pkg/http"
-
-	h "ws.rog.noughtscrosses/pkg/http"
-
 	"github.com/gorilla/websocket"
+
+	h "github.com/hyphengolang/prelude/http"
 )
 
 var upgradeKey = &contextKey{"upgrade-http"}
