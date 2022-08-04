@@ -10,13 +10,14 @@ site_name: rapidmidiex-research
 
 site_description: rapidmidiex research, diagrams, examples, ...
 theme:
-  name: material
+#  name: material
+  name: readthedocs
 markdown_extensions:
   - admonition
-  - pymdownx.details
-  - pymdownx.superfences
-  - pymdownx.highlight:
-      anchor_linenums: true
-  - pymdownx.inlinehilite
-  - pymdownx.snippets
-  - pymdownx.superfences
+#  - pymdownx.details
+#  - pymdownx.superfences
+#  - pymdownx.highlight:
+#      anchor_linenums: true
+#  - pymdownx.inlinehilite
+#  - pymdownx.snippets
+ # - pymdownx.superfences
