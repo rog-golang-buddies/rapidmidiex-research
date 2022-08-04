@@ -170,7 +170,12 @@ Server-Sent Events
 # HTTP/2
 
 - https://stackoverflow.com/questions/28582935/does-http-2-make-websockets-obsolete
+    - still request/response-based but with server push
     - https://building.lang.ai/our-journey-from-websockets-to-http-2-4d069c54effd
+    - https://www.infoq.com/articles/websocket-and-http2-coexist/
+- https://datatracker.ietf.org/doc/html/rfc8441
+    - from 2018-09
+    - Websocket over HTTP/2
 
 # Utility
 
