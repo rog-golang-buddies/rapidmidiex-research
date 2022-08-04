@@ -167,6 +167,11 @@ Server-Sent Events
 - https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events
     - browser limit of 6 open connections when not using HTTP/2
 
+# HTTP/2
+
+- https://stackoverflow.com/questions/28582935/does-http-2-make-websockets-obsolete
+    - https://building.lang.ai/our-journey-from-websockets-to-http-2-4d069c54effd
+
 # Utility
 
 - https://pkg.go.dev/golang.org/x/time/rate
