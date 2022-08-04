@@ -7,7 +7,10 @@ require (
 	github.com/google/uuid v1.3.0
 )
 
-require golang.org/x/sys v0.0.0-20211019181941-9d821ace8654 // indirect
+require (
+	github.com/gorilla/websocket v1.5.0 // indirect
+	golang.org/x/sys v0.0.0-20211019181941-9d821ace8654 // indirect
+)
 
 require (
 	github.com/go-chi/chi v1.5.4
