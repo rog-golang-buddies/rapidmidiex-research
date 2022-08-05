@@ -5,10 +5,11 @@
 
 source: [](src/apps-v0.0.1.monopic)
 
-or use exported `.txt`: [](src/apps-v0.0.1.txt)
+or use exported `.txt`: [](gen/apps-v0.0.1.txt)
 
-![](gen/globalsessionview-v0.0.1.txt)
+![](gen/globalsessionview-v0.0.1.svg)
 
+or use exported `.txt`: [](gen/globalsessionview-v0.0.1.txt)
 source: [](src/apps-v0.0.1.monopic)
 
 # General Info
