@@ -1,49 +1,55 @@
 # Introduction
 
-We are studying how to let multiple musicians jam together (musically) over the Internet.
+**RapidMidiEx** is a project to study how to let multiple musicians jam together (musically) over the Internet.
 
-# Structure of this repo
+A more detailed introduction: [](intro.md).
 
-This repo is essentially just a playground with various sandboxes.
-The real project (WIP) can be found at https://github.com/rog-golang-buddies/rapidmidiex.
+# Structure of our GitHub-repo's
 
-We have a section with diagrams: [Diagrams](docs/diagrams/README.md).
+## Rapidmidiex v0.0.1pre
 
-Research and links to potentially useful libraries or just things that were discussed in the Discord go in [Research](docs/research/README.md).
+The real project (WIP towards `v0.0.1`) can be found at:
 
-And last but not least, check out our [Examples](examples/):
+- https://github.com/rog-golang-buddies/rapidmidiex
+- documentation: https://rog-golang-buddies.github.io/golang-template-repository/
+
+Currently we are using this repo to focus on releasing a first Minimum Viable Product.
+Check the [issues](https://github.com/rog-golang-buddies/rapidmidiex/issues) for more technical information.
+
+## Rapidmidiex-research (this repo)
+
+In this repository we are not burdened with strict release-targets. We can take our time to experiment, discuss, learn, ...
+
+Link to published documentation: https://rog-golang-buddies.github.io/rapidmidiex-research/
+
+### Organisation of this repo
+
+#### Diagrams
+
+[Diagrams](docs/diagrams/README.md) : Our storage for some **sources of diagrams** and some **generated diagrams**. Potentially these might end up in the real **Rapidmidiex**-documentation or perhaps they just help us clarify things we are researching and discussing.
+
+#### Research-notes
+
+[Research](docs/research/README.md) : An attempt to organise various topics and discussions.
+
+- New members can use these notes to have an idea about discussed topics
+- Everyone is encouraged to consolidate collected information here
+- This can be a place to take notes where other members can learn from
+
+#### Examples
+
+[Examples](examples/): We encourage everyone to demonstrate their ideas, proof-of-concepts, coding-style, architecture-patterns, ... **Feel free to add your own examples!**. Adding examples can also be a good way to ask for feedback and code reviews on your work.
 
 - [examples/p2p-webrtc](examples/p2p-webrtc/)
 - [examples/time-sync](examples/time-sync/)
 - [examples/wspingpong](examples/wspingpong/)
 - [examples/ws-noughts-crosses](examples/ws-noughts-crosses)
 - [examples/audio-to-midi](examples/audio-to-midi)
+- [examples/chi-example](examples/chi-example)
 
-# What does this project solve?
+When adding examples, please add a (short) `README.md` to your example and add a link in the list above.
 
-One of the most important elements of music is Time. For musicians to play together, they need to sync with each other. Even a slight delay between the sound you hear and the voice of the instrument significantly impacts the music's integrity and harmony. 
-We can't always play together in person. Thereby we need to use online music jam services. The problem with these services is that they use the audio captured from your device and send it to other users who are listening to the music. Uploading audio data is so expensive that any minor instability in your internet connection has an enormous impact on the collaborative experience.
+#### Contributing
 
-So we decided to look at this problem with a different POV. Why not send MIDI notes instead of audio? If you know some music theory then you know that the note A4 ("La" of the 4th octave in spanish) sounds like A4 everywhere. This way we can play notes in MIDI format as audio on other users' devices.
+Members of *rog-golang-buddies* (https://discord.gg/t4gWKTRg) can join the **rapidmidiex**-project. Once you are a member, your **pull requests** will be reviewed and approved by at least one other member before they will appear in this `main`-branch. Join us!!
 
-Here is an example:
-
-1. User A plays note C on their MIDI device (a MIDI device can be a piano, a guitar or any instrument which has a MIDI port)<br/>
-  MIDI message example:<br/>
-  ![image](https://user-images.githubusercontent.com/62774242/180223617-8b22f9c2-8b2c-45d7-9475-a18b21ab67dc.png)
-
-2. The sound of the received note from User A plays on User B's computer.
-
-For more info about the structure of this project and relaled tools, check out these folders: [diagrams](https://github.com/rog-golang-buddies/realtime-midi/tree/main/docs/diagrams), [research](https://github.com/rog-golang-buddies/realtime-midi/tree/main/docs/research)
-
-# What is MIDI?
-> MIDI (/ˈmɪdi/; Musical Instrument Digital Interface) is a technical standard that describes a communications protocol, digital interface, and electrical connectors that connect a wide variety of electronic musical instruments, computers, and related audio devices for playing, editing, and recording music.  The specification originates in the paper Universal Synthesizer Interface published by Dave Smith and Chet Wood of Sequential Circuits at the 1981 Audio Engineering Society conference in New York City. A MIDI recording is not an audio signal, as with a sound recording made with a microphone. It is more like a piano roll, indicating the pitch, start time, stop time and other properties of each individual note, rather than the resulting sound.
-
-TL;DR
-MIDI is a standard format for sending music notes to other devices or instruments.
-
-# What about the instruments without MIDI support?
-We've got you covered 🥳🎉<br/>
-What if we convert the sound from your instrument into MIDI and then send it to other users? 😉<br/>
-Here is an example which generates MIDI numbers of the notes from the audio received from your microphone.<br/>
-[examples/audio-to-midi](examples/audio-to-midi)
