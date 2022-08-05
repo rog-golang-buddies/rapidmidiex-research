@@ -46,6 +46,7 @@ Link to published documentation: https://rog-golang-buddies.github.io/rapidmidie
 - [examples/ws-noughts-crosses](examples/ws-noughts-crosses)
 - [examples/audio-to-midi](examples/audio-to-midi)
 - [examples/chi-example](examples/chi-example)
+- [examples/tui-bubteasers](examples/tui-bubteasers)
 
 When adding examples, please add a (short) `README.md` to your example and add a link in the list above.
 
