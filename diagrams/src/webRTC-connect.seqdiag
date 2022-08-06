@@ -1,0 +1,30 @@
+title: WebRTC Peer Connection Flow
+Note over Caller: localConn = new RTCPeerConnection(serverConfig);
+Note over Caller: create local data channel
+Note over Caller: create offer
+Note over Caller: set local desc offer
+Note over Caller: gather ICE candidates
+
+Note over Callee: localConn = new RTCPeerConnection(serverConfig);
+
+Caller -> Callee: Send offer
+Note over Callee: set data channel w/ ondatachannel event
+
+
+Note over Callee: set remote desc with offer
+Note over Callee: create answer
+Note over Callee: set local desc with answer
+Note over Callee: gather ICE candidates
+
+Callee -> Caller: Send answer
+
+Note over Caller: Set remote desc with answer
+
+Note right of Caller: Connection opened!
+
+Caller -> Callee: Send message over data channel
+Callee -> Caller: Send message over data channel
+
+
+
+
