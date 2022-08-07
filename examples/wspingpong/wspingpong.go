@@ -21,17 +21,18 @@ const (
 	LogLevelFullSpew
 )
 
+// A service that does some http-hosting, some ws-communication and some logging (with a configurable loglevel)
 type WSPingPongServer struct {
 	LogLevel LogLevel
 }
 
-func logBasicRequest(r http.Request) {
+func (h WSPingPongServer) logBasicRequest(r http.Request) {
 	log.Printf("[%s]-request from [%s] using [%s] with [%d] headers\n", r.Method, r.Host, r.Proto, len(r.Header))
 }
 
 // Don't call this function! Only call `WSPingPongServer.log`. Otherwise call-depth is not correct.
 // TODO: make this function detect if it's called by `WSPingPongServer.log` or something else.
-func logBasicWithHeadersRequest(r http.Request) {
+func (h WSPingPongServer) logBasicWithHeadersRequest(r http.Request) {
 	s := fmt.Sprintf("[%s]-request from [%s] using [%s] with [%d] headers\n", r.Method, r.Host, r.Proto, len(r.Header))
 	log.Output(3, s) // use call-depth 3 to log the line-number of the original calling function
 	if len(r.Header) > 0 {
@@ -45,9 +46,9 @@ func logBasicWithHeadersRequest(r http.Request) {
 func (h WSPingPongServer) log(r http.Request) {
 	switch h.LogLevel {
 	case LogLevelBasic:
-		logBasicRequest(r)
+		h.logBasicRequest(r)
 	case LogLevelBasicWithHeaders:
-		logBasicWithHeadersRequest(r)
+		h.logBasicWithHeadersRequest(r)
 	case LogLevelFull:
 		log.Printf("request: [%+v]\n", r)
 	case LogLevelFullSpew:
@@ -57,6 +58,9 @@ func (h WSPingPongServer) log(r http.Request) {
 }
 
 func (h WSPingPongServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+	}
 
 	// a manual router ;-)
 	switch r.URL.String() {
