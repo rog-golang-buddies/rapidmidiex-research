@@ -1,0 +1,34 @@
+# View on web:
+# https://www.websequencediagrams.com/files/render?link=2uX8ikm5zlbU2MY91kkCRsc8H0volTlZQdJDxleaiJPq1LDh7s6xGRSo2oRicmDt
+
+# Or in VS Code:
+# https://marketplace.visualstudio.com/items?itemName=AleksandarDev.vscode-sequence-diagrams
+
+MusicianA->Server: visit home
+Note over Server: Use WS connection for\n- WebRTC singaling\n- central clock?
+Server->MusicianA: Establish websocket connection
+Server->MusicianA: new jam session hash
+MusicianA-->MusicianB: send session link
+
+Note over MusicianB: B visits session URL
+Server->MusicianB: Establish websocket connection
+
+Note over Server: WebRTC signalling\n(simplified)
+MusicianA->Server: send SDP offer\n(websocket)
+Server->MusicianB: forward SDP offer to B\n(websocket)
+MusicianB->Server: send SDP offer response\n(websocket)
+Server->MusicianA: forward SDP offer response to A\n(websocket)
+
+Note over Server: WebRTC signalling\ncomplete
+Note over MusicianA: now A and B can connect\ndirectly over WebRTC
+MusicianA -> MusicianB:  WebRTC data channel
+MusicianB -> MusicianA: between A and B
+
+Note left of MusicianA: Jam Session begins
+Note over MusicianB: B plays a note on\ntheir instrument
+MusicianB->MusicianA: Send MIDI 'NOTE_ON'\n(data channel)
+Note over MusicianA: MIDI note plays for A
+MusicianB->MusicianA: Send MIDI 'NOTE_OFF'\n(data channel)
+MusicianA->MusicianB: Send MIDI 'NOTE_ON'\n(data channel)
+Note over MusicianB: MIDI note plays for B
+MusicianA->MusicianB: Send MIDI 'NOTE_OFF'\n(data channel)

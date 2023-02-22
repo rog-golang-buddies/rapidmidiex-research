@@ -1,0 +1,22 @@
+Title: User Authentication flow
+
+User->BFF server: Auth req {email, password, User-Agent}
+BFF server->Auth server: {email, password}
+Note over Auth server: offline_access OAuth flow\n scope: openid, email, profile
+Auth server->User: Redirect to Auth page with: state, nonce
+User-->OAuth provider: User Authenticates with OAuth
+Note over OAuth provider: User Authenticated
+OAuth provider->Auth server: Auth callback
+
+Note over Auth server: Store id_token data\n (only new users)
+Auth server->BFF server: send Auth tokens
+Note over BFF server: Generate Session-Cookie\n for tracking user active sessions
+Note over BFF server: Store access_token in redis\n {\n key: Session-Cookie,\n value: {access_token, email}\n }
+Note over BFF server: Store refresh_token in redis\n {\n key: Session-Cookie,\n value: {refresh_token, email}\n }
+BFF server->User: set-cookie: Session-Cookie\n (httpOnly, SameSite: Strict)
+
+User->BFF server: cookie: Session-Cookie
+BFF server->Resource server: Auth tokens and request
+Note over Resource server: validate tokens using .well-known keys
+Resource server->BFF server: data
+BFF server->User: data

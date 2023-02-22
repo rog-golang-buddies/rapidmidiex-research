@@ -1,0 +1,17 @@
+Title: MIDI Note Ping - "Ding"
+Local Client-> Remote Client: Send MIDI:\n'E4, NOTE_ON'
+Note over Local Client: Start 'E4' timer
+Note over Local Client: Audibly play 'E4'
+
+Note right of Local Client: Note takes whatever time\nover selected transport...\n(WebRTC, Websocket)
+
+Note over Remote Client: Receieve MIDI message
+Remote Client-> Local Client: Send same message back
+
+Note over Local Client: Stop 'E4' timer
+Note over Local Client: Audibly play 'E4'
+Note over Local Client: Display 'E4 - 45ms'
+
+Note right of Local Client: - hear the delay\n- see the actual timed latency\n-know if notes are dropped
+
+Note right of Local Client: We could also pre-program\n melodies to more clearly\n hear the latency

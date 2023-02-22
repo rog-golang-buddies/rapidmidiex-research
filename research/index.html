@@ -1,0 +1,1214 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="rapidmidiex research, diagrams, examples, ...">
+      
+      
+      
+      
+        <link rel="prev" href="../patterns/stdlib/user/">
+      
+      
+        <link rel="next" href="RTP-MIDI/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.13">
+    
+    
+      
+        <title>Introduction - rapidmidiex-research</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ffa9267a.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.a0c5b2b5.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#introduction" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="rapidmidiex-research" class="md-header__button md-logo" aria-label="rapidmidiex-research" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            rapidmidiex-research
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Introduction
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="rapidmidiex-research" class="md-nav__button md-logo" aria-label="rapidmidiex-research" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    rapidmidiex-research
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Docs
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Diagrams
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Diagrams
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagrams/" class="md-nav__link">
+        v0.0.1 diagrams
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Patterns
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Patterns
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../patterns/" class="md-nav__link">
+        List of patterns and conventions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+          Hybrid
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          Hybrid
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_1" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_2_1" id="__nav_3_2_1_label" tabindex="0">
+          Auth
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_1_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Auth
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../patterns/hybrid/auth/" class="md-nav__link">
+        Index
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_2_2" id="__nav_3_2_2_label" tabindex="0">
+          Models
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Models
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../patterns/hybrid/models/" class="md-nav__link">
+        Index
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_2_3" id="__nav_3_2_3_label" tabindex="0">
+          User
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          User
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../patterns/hybrid/user/" class="md-nav__link">
+        Index
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+          Layers
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Layers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../patterns/layers/" class="md-nav__link">
+        Index
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_3_2" id="__nav_3_3_2_label" tabindex="0">
+          Handlers
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          Handlers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../patterns/layers/handlers/" class="md-nav__link">
+        Index
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_3_3" id="__nav_3_3_3_label" tabindex="0">
+          Models
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Models
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../patterns/layers/models/" class="md-nav__link">
+        Index
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_3_4" id="__nav_3_3_4_label" tabindex="0">
+          Services
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Services
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../patterns/layers/services/" class="md-nav__link">
+        Index
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+          Stdlib
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Stdlib
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../patterns/stdlib/" class="md-nav__link">
+        Index
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_4_2" id="__nav_3_4_2_label" tabindex="0">
+          Auth
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Auth
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../patterns/stdlib/auth/" class="md-nav__link">
+        Index
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_4_3" id="__nav_3_4_3_label" tabindex="0">
+          User
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          User
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../patterns/stdlib/user/" class="md-nav__link">
+        Index
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          Research
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Research
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Introduction
+      </a>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="RTP-MIDI/" class="md-nav__link">
+        RTP-MIDI
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="StreamingProtocols/" class="md-nav__link">
+        SIP
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Websockets/" class="md-nav__link">
+        Websockets
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="introduction">Introduction</h1>
+<p>Here we collect (and learn about) all possible useful information.</p>
+<p>When programming Internet-applications, some basic networking knowledge about https://en.wikipedia.org/wiki/Internet_protocol_suite can be useful.</p>
+<p>When it comes to streaming audio/video or other realtime communications, some specific protocols have been developed over the years. We explore them a bit in <a href="StreamingProtocols/">StreamingProtocols</a>.</p>
+<p>One particular interesting use-case that has been researched by audio professionals (and is also implemented by Apple in their OS's and therefore also known as <strong>AppleMIDI</strong>) is <a href="RTP-MIDI/">RTP-MIDI</a>.</p>
+<p>All previous links serve more as background-information.</p>
+<p>Next we collect what could actually be useful for our project:</p>
+<h1 id="webrtc">WebRTC</h1>
+<ul>
+<li>uses <strong>SCTP</strong>: Stream Control Transmission Protocol (transport layer protocol)</li>
+<li>uses <strong>DTLS</strong>: TLS for UDP- or SCTP-datagrams</li>
+<li>several Javascript API's:</li>
+<li><code>getUserMedia</code></li>
+<li><code>RTCPeerConnection</code></li>
+<li><code>RTCDataChannel</code> (similar API to websocket but latency)</li>
+<li><code>getStats</code></li>
+<li>requires SIP, <strong>SIP over websockets (RFC7118)</strong>, XMPP (Jabber), ... for signaling</li>
+<li>The official examples:</li>
+<li>https://webrtc.github.io/samples/<ul>
+<li>https://github.com/webrtc/samples</li>
+</ul>
+</li>
+</ul>
+<p>Golang:</p>
+<ul>
+<li>https://libs.garden/go/search?q=webrtc</li>
+<li>https://pion.ly/</li>
+</ul>
+<h1 id="midi">MIDI</h1>
+<ul>
+<li>https://github.com/ldrolez/free-midi-chords<ul>
+<li>Python-script to generate a midi-file for every chords (and chord-progressions) in all keys (7900+ midi-files)</li>
+</ul>
+</li>
+</ul>
+<p>Golang:</p>
+<ul>
+<li>https://libs.garden/go/search?q=midi</li>
+<li>https://github.com/gomidi/midi</li>
+<li>contains a <strong>WASM</strong>-example that can talk to real midi-hardware from the webbrowser!</li>
+</ul>
+<h1 id="music-theory-math">Music theory / math</h1>
+<p>Golang:</p>
+<ul>
+<li>https://github.com/go-music-theory/music-theory</li>
+</ul>
+<h1 id="front-end-audiomidi">Front-end audio/midi</h1>
+<ul>
+<li>https://jazz-soft.net/doc/</li>
+<li>
+<p>used in <a href="../examples/p2p-webrtc/index.html">p2p-webrtc example</a></p>
+</li>
+<li>
+<p>https://github.com/joshreiss/Working-with-the-Web-Audio-API</p>
+</li>
+<li>many examples in tutorial-format about WebAudio</li>
+<li>
+<p>chapter 18 and 19 are about <code>AudioWorklet</code>'s (https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Using_AudioWorklet)</p>
+</li>
+<li>
+<p>https://web.dev/audio-scheduling/</p>
+</li>
+<li>
+<p>don't use <code>setTimeout</code> but <code>requestAnimationFrame</code> or <em>custom system?</em> </p>
+</li>
+<li>
+<p>https://meowni.ca/posts/metronomes/</p>
+</li>
+<li>blog article about <strong>keeping time</strong> in Javascript</li>
+<li>quite recent: 2019-09-10</li>
+<li>
+<p>compares</p>
+<ul>
+<li><code>setInterval</code></li>
+<li><code>setInterval</code> in a <code>Worker</code> </li>
+<li>prescheduled audio events in Web Audio API</li>
+</ul>
+</li>
+<li>
+<p>https://blog.logrocket.com/build-native-audio-plugin-elementary/</p>
+</li>
+<li>
+<p>an article about using the https://www.elementary.audio/ framework</p>
+<ul>
+<li>Elementary is not <strong>just</strong> front-end:</li>
+<li>for the front-end (web): https://www.elementary.audio/docs/packages/web-renderer</li>
+<li>local on a machine (nodejs): https://www.elementary.audio/docs/packages/node-renderer</li>
+<li>as a VST/AUv3-plugin for in a DAW: https://www.elementary.audio/docs/packages/plugin-renderer</li>
+<li>they have commercial aspirations:</li>
+<li>VST/AUv3-plugin not free ($$$)</li>
+<li>a marketplace for plugins: https://www.elementary.audio/marketplace</li>
+<li>...</li>
+</ul>
+</li>
+<li>
+<p>Soundfonts</p>
+</li>
+<li>https://github.com/gleitz/midi-js-soundfonts</li>
+</ul>
+<h1 id="wasm-and-golang">WASM and Golang</h1>
+<ul>
+<li>https://github.com/wasmerio/wasmer-go</li>
+<li>go-interface around https://github.com/wasmerio/wasmer<ul>
+<li>wasmer allows running <code>.wasm</code>-executables even outside of the browser</li>
+</ul>
+</li>
+</ul>
+<h1 id="audio-processing">Audio processing</h1>
+<ul>
+<li>https://engineering.atspotify.com/2022/06/meet-basic-pitch/</li>
+<li>research from<ul>
+<li>Spotify's Audio Intelligence Lab (https://research.atspotify.com/audio-intelligence/)</li>
+<li>https://www.soundtrap.com/</li>
+</ul>
+</li>
+<li>How to convert audio to midi, fast and in realtime</li>
+<li>uses ML (Machine Learning)</li>
+<li>...</li>
+</ul>
+<p>Golang:</p>
+<blockquote>
+<p>Most likely all audio-stuff in golang requires some non-Go-code (<code>cgo</code>, <code>clang</code>, ...) under the hood. This is <strong>not</strong> ideal!
+We must consider this as potential time-stealing problems when building/testing and at a later stage supportability.
+TODO: keep track of additional dependencies on each platform!</p>
+</blockquote>
+<ul>
+<li>https://github.com/faiface/beep</li>
+<li>uses https://github.com/hajimehoshi/oto<ul>
+<li>a low-level library to play sound</li>
+<li>cross-platform, even for mobile OS's?</li>
+</ul>
+</li>
+<li>https://github.com/MarkKremer/microphone</li>
+<li>uses https://github.com/gordonklaus/portaudio<ul>
+<li>a Go-interface around the http://www.portaudio.com/ audio-library</li>
+<li>cross-platform but apparently not really for mobile?</li>
+</ul>
+</li>
+</ul>
+<h1 id="websockets">Websockets</h1>
+<p>See <a href="Websockets/">Websockets.md</a> for some notes on the Websocket-protocol as per RFC's and other useful websites.</p>
+<p>Golang:</p>
+<ul>
+<li>https://pkg.go.dev/golang.org/x/net/websocket</li>
+<li>(per documentation:) <em>lacks features</em></li>
+<li>https://github.com/gorilla/websocket</li>
+<li>(per documentation:) <em>complete and tested</em>, passes <em>Autobahn Test Suite</em><ul>
+<li>https://github.com/crossbario/autobahn-testsuite</li>
+</ul>
+</li>
+<li>probably the most used websocket-implementation</li>
+<li>https://github.com/nhooyr/websocket</li>
+<li>passes <em>Autobahn Test Suite</em></li>
+<li>Some interesting features that <strong>might</strong> make it more useful for our project<ul>
+<li>Zero alloc reads and writes</li>
+<li>Supports compiling to <strong>WASM</strong></li>
+<li>solves a problem with closing handshake that gorilla still has (https://github.com/gorilla/websocket/issues/448)</li>
+</ul>
+</li>
+<li>https://github.com/gobwas/ws</li>
+<li>written for <em>mail.ru</em> to handle millions of users checking their e-mail, see https://www.freecodecamp.org/news/million-websockets-and-go-cc58418460bb</li>
+<li>speaks of <em>Zero Copy HTTP Upgrades</em> (https://github.com/gobwas/ws#zero-copy-upgrade)<ul>
+<li>this is when <strong>one</strong> client's HTTP-connection gets upgraded to a <code>ws</code>-connection</li>
+<li>important for when you have many millions of clients checking e-mail</li>
+<li>not very important for our use case since a jamming session would reasonably have only about a dozen people</li>
+<li>unless we want to make it <strong>MMOJ</strong> (Massive Multiplayer Online Jamming) :wink: but even then the <em>joining a jam-session</em>-part is not the real bottleneck</li>
+</ul>
+</li>
+<li>an example how to connect 2 go-apps: https://itnext.io/websocket-communication-between-two-go-programs-the-easy-way-d8c9cf40043f</li>
+</ul>
+<h1 id="websocket-performance">Websocket performance</h1>
+<ul>
+<li>https://centrifugal.github.io/centrifugo/blog/scaling_websocket/</li>
+<li>setting up web sockets for scalability</li>
+<li>basically this article is promotion for https://github.com/centrifugal/centrifuge</li>
+<li>
+<p>talks about</p>
+<ul>
+<li>the different golang-libraries, author prefers gorilla</li>
+<li>OS-tuning: a file descriptor per connection? </li>
+<li>https://docs.riak.com/riak/kv/2.2.3/using/performance/open-files-limit.1.html</li>
+<li>linux: <code>ulimit -n</code></li>
+<li>macos: <code>launchctl limit maxfiles</code></li>
+<li>
+<p>or: https://pkg.go.dev/golang.org/x/net/netutil#LimitListener</p>
+</li>
+<li>
+<p>or some low-level TCP/IP-settings: https://gist.github.com/mustafaturan/47268d8ad6d56cadda357e4c438f51ca</p>
+</li>
+<li>pub/sub-brokers (RabbitMQ, Kafka, Redis, ...)</li>
+<li>massive reconnect problem</li>
+<li>benefits of using <strong>message event stream</strong> (a buffer with client-state)</li>
+<li>https://crossbario.com/blog/Dissecting-Websocket-Overhead/</li>
+<li>some benchmarks on a GbE-switch</li>
+</ul>
+</li>
+</ul>
+<h1 id="sse">SSE</h1>
+<p>Server-Sent Events</p>
+<ul>
+<li>https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events<ul>
+<li>browser limit of 6 open connections when not using HTTP/2</li>
+</ul>
+</li>
+</ul>
+<h1 id="http2">HTTP/2</h1>
+<ul>
+<li>https://stackoverflow.com/questions/28582935/does-http-2-make-websockets-obsolete<ul>
+<li>still request/response-based but with server push</li>
+<li>https://building.lang.ai/our-journey-from-websockets-to-http-2-4d069c54effd</li>
+<li>https://www.infoq.com/articles/websocket-and-http2-coexist/</li>
+</ul>
+</li>
+<li>https://datatracker.ietf.org/doc/html/rfc8441<ul>
+<li>from 2018-09</li>
+<li>Websocket over HTTP/2</li>
+</ul>
+</li>
+</ul>
+<h1 id="utility">Utility</h1>
+<ul>
+<li>https://pkg.go.dev/golang.org/x/time/rate</li>
+<li>used in websocket-chat-example: https://github.com/nhooyr/websocket/blob/master/examples/chat</li>
+</ul>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.2a6f1dda.min.js"></script>
+      
+    
+  </body>
+</html>
